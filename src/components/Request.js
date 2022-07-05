@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postNewReservation } from "../store/reservation/thunks";
+import { LocationFinder } from "./LocationFinder";
 
 export const Request = (props) => {
   const dispatch = useDispatch();
@@ -12,7 +13,10 @@ export const Request = (props) => {
   const [description, setDescription] = useState("");
   const [longitude, setLongitude] = useState(null);
   const [latitude, setLatitude] = useState(null);
-
+  const setMyLocation = (newLatitude, newLongitude) => {
+    setLatitude(newLatitude);
+    setLongitude(newLongitude);
+  };
   function submitForm(event) {
     event.preventDefault();
 
@@ -56,6 +60,17 @@ export const Request = (props) => {
           value=""
         />
       </Form.Group>
+      <Form.Group>
+        <Form.Label>latitude: </Form.Label>
+        <Form.Control type="text" value={latitude} />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>longitude: </Form.Label>
+        <Form.Control type="text" value={longitude} />
+      </Form.Group>
+
+      <LocationFinder onPositionFound={setMyLocation} />
+
       <Form.Group>
         <Button type="submit" onClick={submitForm}>
           Submit

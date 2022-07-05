@@ -1,18 +1,22 @@
 import { Container } from "@mui/system";
 import { Button } from "../styled";
+import React from "react";
+import "leaflet/dist/leaflet.css";
 
-export const LocationFinder = () => {
-  //   [myLocation, setMyLocation] = useState(null);
+export const LocationFinder = (props) => {
+  const setCurrentLocation = (e) => {
+    e.preventDefault();
 
-  const getCurrentLocation = () => {
     if (navigator.geolocation) {
       console.log("geolocation available");
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // setStatus(null);
-          // setLat(position.coords.latitude);
-          console.log("my location", position.coords);
-          // setLng(position.coords.longitude);
+        (p) => {
+          console.log("Position is:", [p.coords.latitude, p.coords.longitude]);
+
+          // bu fonksiyona tekrar bak ???
+          const onPositionFound = props.onPositionFound;
+          if (onPositionFound)
+            onPositionFound(p.coords.latitude, p.coords.longitude);
         },
         () => {
           console.log("Unable to retrieve your location");
@@ -25,7 +29,7 @@ export const LocationFinder = () => {
 
   return (
     <Container>
-      📍 <Button onClick={getCurrentLocation}>Find my Location</Button>
+      📍 <Button onClick={setCurrentLocation}>Find my Location</Button>
     </Container>
   );
 };
