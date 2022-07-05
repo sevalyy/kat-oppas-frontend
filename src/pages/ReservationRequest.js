@@ -1,15 +1,14 @@
-import { Title } from "../styled";
-import { Link } from "react-router-dom";
-import { LinkWord } from "../styled";
+// import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 import { Request } from "../components/Request";
+import React from "react";
 
 export const ReservationRequest = () => {
   return (
     <Container>
       <h2> Reservation Request</h2>
       <Request />
-      <button>Submit</button>
     </Container>
   );
 };
