@@ -10,12 +10,18 @@ import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { Link } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
-
+import L from "leaflet";
 export function Homepage() {
   const dispatch = useDispatch();
   const reservations = useSelector(selectAllReservations);
   const [map, setMap] = useState(null);
+  delete L.Icon.Default.prototype._getIconUrl;
 
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  });
   const setMapPosition = (latitude, longitude) => {
     // zoom in to your current place
     map.flyTo([latitude, longitude], 14);
