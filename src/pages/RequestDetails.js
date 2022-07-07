@@ -1,5 +1,5 @@
 import { Title } from "../styled";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectReservationDetails } from "../store/reservation/selector";
@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 
 export const RequestDetails = () => {
   const { id } = useParams();
+
   const reservationDetail = useSelector(selectReservationDetails);
   //   const token = useSelector(selectToken);
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export const RequestDetails = () => {
   }, [dispatch, id]);
 
   if (!reservationDetail) return <div>There is no request with this id</div>;
-
+  console.log("details", reservationDetail);
   return (
     <Container>
       <Title> I'm looking for somebody to take care of me</Title>
@@ -27,8 +28,7 @@ export const RequestDetails = () => {
         <div className="p-2 col-example text-left">
           <img
             style={{ width: 300, height: 400 }}
-            src="https://cataas.com/cat?width=300"
-            // src={reservationDetail.requester.imgUrl}
+            src={reservationDetail.imageUrl}
             alt={reservationDetail.id}
           />
         </div>

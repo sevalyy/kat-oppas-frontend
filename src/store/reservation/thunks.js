@@ -34,7 +34,8 @@ export const postNewReservation = (
   endDate,
   description,
   longitude,
-  latitude
+  latitude,
+  imageUrl
 ) => {
   return async (dispatch, getState) => {
     try {
@@ -49,6 +50,7 @@ export const postNewReservation = (
           description,
           longitude,
           latitude,
+          imageUrl,
         }
         // {
         //   headers: {

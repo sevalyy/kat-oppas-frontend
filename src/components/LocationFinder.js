@@ -14,9 +14,9 @@ export const LocationFinder = (props) => {
           console.log("Position is:", [p.coords.latitude, p.coords.longitude]);
 
           // bu fonksiyona tekrar bak ???
-          const onPositionFound = props.onPositionFound;
-          if (onPositionFound)
-            onPositionFound(p.coords.latitude, p.coords.longitude);
+          const currentPosition = props.currentPosition;
+          if (currentPosition)
+            currentPosition(p.coords.latitude, p.coords.longitude);
         },
         () => {
           console.log("Unable to retrieve your location");
