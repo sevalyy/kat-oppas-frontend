@@ -57,7 +57,7 @@ export const Request = (props) => {
           // value = today +1
           onChange={(event) => setDescription(event.target.value)}
           type="text"
-          value=""
+          value={description}
         />
       </Form.Group>
       <Form.Group>
