@@ -10,6 +10,8 @@ import { TileLayer } from "react-leaflet/TileLayer";
 import { Marker } from "react-leaflet";
 import moment from "moment";
 import { Image } from "react-bootstrap";
+import L from "leaflet";
+
 //for shwing images with cloudinary
 import { AdvancedImage } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
@@ -48,9 +50,11 @@ export const Request = (props) => {
   const todayString = moment().format("YYYY-MM-DD");
 
   const setMyLocation = (newLatitude, newLongitude) => {
-    // setLatitude(newLatitude);
-    // setLongitude(newLongitude);
+    console.log("Before Flying to ..");
     setSelectedLocation({ latitude: newLatitude, longitude: newLongitude });
+    console.log("Flying to ..");
+    map.flyTo([newLatitude, newLongitude], 15);
+    console.log("Flying done ..", map);
   };
   function submitForm(event) {
     event.preventDefault();
@@ -82,6 +86,14 @@ export const Request = (props) => {
       map.on("click", onMapClick);
     }
   }, [map]);
+
+  delete L.Icon.Default.prototype._getIconUrl;
+
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  });
 
   return (
     <div>
@@ -133,6 +145,34 @@ export const Request = (props) => {
             type="text"
             value={description}
           />
+          <MapContainer
+            center={[52.35, 4.86]}
+            zoom={12}
+            scrollWheelZoom={true}
+            ref={setMap}
+            style={{
+              border: "2px solid",
+              borderRadius: "10px",
+              height: "30vw",
+              width: "40vw",
+              maxWidth: "600px",
+              maxHeight: "600px",
+              margin: "20px 19.5%",
+            }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {selectedLocation && (
+              <Marker
+                position={[
+                  selectedLocation.latitude,
+                  selectedLocation.longitude,
+                ]}
+              ></Marker>
+            )}
+          </MapContainer>
         </Form.Group>
 
         <LocationFinder onPositionFound={setMyLocation} />
@@ -142,32 +182,6 @@ export const Request = (props) => {
             Submit
           </Button>
         </Form.Group>
-
-        <MapContainer
-          center={[52.35, 4.86]}
-          zoom={12}
-          scrollWheelZoom={true}
-          ref={setMap}
-          style={{
-            border: "2px solid",
-            borderRadius: "10px",
-            height: "30vw",
-            width: "40vw",
-            maxWidth: "600px",
-            maxHeight: "600px",
-            margin: "20px 19.5%",
-          }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {selectedLocation && (
-            <Marker
-              position={[selectedLocation.latitude, selectedLocation.longitude]}
-            ></Marker>
-          )}
-        </MapContainer>
       </Form>
     </div>
   );

@@ -62,7 +62,7 @@ export function Homepage() {
       <div className="panels">
         <div className={`panel ${checkActive(0, "active")}`}>
           <div>
-            <LocationFinder currentPosition={setMapPosition} />
+            <LocationFinder onPositionFound={setMapPosition} />
             <MapContainer
               center={[52.35, 4.86]}
               zoom={12}
