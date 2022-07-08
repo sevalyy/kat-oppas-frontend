@@ -113,6 +113,7 @@ export function Homepage() {
                   id={reservation.id}
                   startDate={reservation.startDate}
                   endDate={reservation.endDate}
+                  imageUrl={reservation.imageUrl}
                   // lattitude={reservation.latitude}
                   // longitude={reservation.longitude}
                 />

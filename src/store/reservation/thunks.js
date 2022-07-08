@@ -7,6 +7,7 @@ import {
 } from "./slice";
 import { appLoading, appDoneLoading } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
+// import { useNavigate } from "react-router-dom";
 
 export const fetchReservations = () => {
   return async (dispatch, getState) => {
@@ -39,7 +40,7 @@ export const postNewReservation = (
 ) => {
   return async (dispatch, getState) => {
     try {
-      //   const { token } = getState().user;
+      const { token } = getState().user;
       dispatch(appLoading());
 
       const response = await axios.post(
@@ -51,12 +52,12 @@ export const postNewReservation = (
           longitude,
           latitude,
           imageUrl,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // }
       );
 
       dispatch(

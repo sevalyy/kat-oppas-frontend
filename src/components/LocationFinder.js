@@ -29,7 +29,7 @@ export const LocationFinder = (props) => {
 
   return (
     <Container>
-      📍 <Button onClick={setCurrentLocation}>Find my Location</Button>
+      📍 <Button onClick={setCurrentLocation}>My Location</Button>
     </Container>
   );
 };

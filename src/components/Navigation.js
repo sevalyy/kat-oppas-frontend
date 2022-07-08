@@ -25,8 +25,11 @@ export const Navigation = () => {
         ) : (
           <MenuLink href="/login">Login</MenuLink>
         )}
-        <MenuLink href="/request">Reservation Request</MenuLink>
-        <MenuLink href="/homepage">My Account</MenuLink>
+        {token ? (
+          <MenuLink href="/request">Reservation Request</MenuLink>
+        ) : null}
+        {/* <MenuLink href="/request">Reservation Request</MenuLink> */}
+        <MenuLink href="/">Home page</MenuLink>
       </Menu>
     </Nav>
   );

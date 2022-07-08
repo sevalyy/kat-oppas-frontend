@@ -10,9 +10,8 @@ export const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [telephone, setTelephone] = useState("");
   const [aboutMe, setAboutMe] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ export const SignUp = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    dispatch(signUp(name, email, password, phoneNumber, aboutMe, imageUrl));
+    dispatch(signUp(name, email, password, telephone, aboutMe));
   };
 
   return (
@@ -52,10 +51,10 @@ export const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Input
-            type="phoneNumber"
+            type="telephone"
             placeholder="phone number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={telephone}
+            onChange={(e) => setTelephone(e.target.value)}
           />
           <Input
             type="aboutMe"
@@ -63,15 +62,11 @@ export const SignUp = () => {
             value={aboutMe}
             onChange={(e) => setAboutMe(e.target.value)}
           />
-          <Input
-            type="imageUrl"
-            placeholder="Your cat's photo"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
+
           <br />
-          <p>Find my location</p>
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" onClick={submitForm}>
+            Sign Up
+          </Button>
         </form>
       </Container>
     </div>

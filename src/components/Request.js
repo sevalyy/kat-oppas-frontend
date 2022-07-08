@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 import { postNewReservation } from "../store/reservation/thunks";
 import { LocationFinder } from "./LocationFinder";
 import { MapContainer } from "react-leaflet/MapContainer";
@@ -13,8 +14,8 @@ import { Image } from "react-bootstrap";
 import L from "leaflet";
 
 //for shwing images with cloudinary
-import { AdvancedImage } from "@cloudinary/react";
-import { Cloudinary } from "@cloudinary/url-gen";
+// import { AdvancedImage } from "@cloudinary/react";
+// import { Cloudinary } from "@cloudinary/url-gen";
 
 export const Request = (props) => {
   const dispatch = useDispatch();
@@ -56,6 +57,9 @@ export const Request = (props) => {
     map.flyTo([newLatitude, newLongitude], 15);
     console.log("Flying done ..", map);
   };
+
+  // const navigate = useNavigate();
+
   function submitForm(event) {
     event.preventDefault();
 
@@ -72,6 +76,7 @@ export const Request = (props) => {
     );
     setDescription("");
     setImageUrl(null);
+    // navigate("/");
   }
 
   useEffect(() => {
