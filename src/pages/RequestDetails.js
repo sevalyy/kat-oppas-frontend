@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectReservationDetails } from "../store/reservation/selector";
-import { fetchReservationById } from "../store/reservation/thunks";
+import {
+  fetchReservationById,
+  acceptReservation,
+} from "../store/reservation/thunks";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 // import { selectToken } from "../store/user/selectors";
@@ -38,7 +41,13 @@ export const RequestDetails = () => {
           <p>End Date: {reservationDetail.endDate}</p>
 
           <p>{reservationDetail.description}</p>
-          <Button>Accept</Button>
+          <Button
+            onClick={() => {
+              dispatch(acceptReservation(id));
+            }}
+          >
+            Accept
+          </Button>
         </div>
       </Container>
     </Container>

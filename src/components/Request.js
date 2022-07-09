@@ -12,7 +12,7 @@ import { Marker } from "react-leaflet";
 import moment from "moment";
 import { Image } from "react-bootstrap";
 import L from "leaflet";
-
+import { showMessageWithTimeout } from "../store/appState/thunks";
 //for shwing images with cloudinary
 // import { AdvancedImage } from "@cloudinary/react";
 // import { Cloudinary } from "@cloudinary/url-gen";
@@ -63,6 +63,12 @@ export const Request = (props) => {
   function submitForm(event) {
     event.preventDefault();
 
+    if (!selectedLocation) {
+      dispatch(
+        showMessageWithTimeout("fail", false, "Please pick a location", 5000)
+      );
+      return;
+    }
     const { latitude, longitude } = selectedLocation;
     dispatch(
       postNewReservation(

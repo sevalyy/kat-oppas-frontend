@@ -13,6 +13,8 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Cat from "../components/Cat";
 import "./style.css";
+// import { Row, Button, Col } from "react-bootstrap";
+// use them to create react bootsrap tab button
 export function Homepage() {
   const [map, setMap] = useState(null);
   const reservations = useSelector(selectAllReservations);
@@ -59,6 +61,7 @@ export function Homepage() {
           List{" "}
         </button>
       </div>
+
       <div className="panels">
         <div className={`panel ${checkActive(0, "active")}`}>
           <div>
