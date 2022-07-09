@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allReservations: [],
   reservationDetails: {},
+  myReservations: [],
 };
 
 export const reservationSlice = createSlice({
@@ -12,7 +13,9 @@ export const reservationSlice = createSlice({
     setAllReservations: (state, action) => {
       state.allReservations = action.payload;
     },
-
+    setMyReservations: (state, action) => {
+      state.myReservations = action.payload;
+    },
     setRezervationDetails: (state, action) => {
       state.reservationDetails = action.payload;
     },
@@ -22,7 +25,11 @@ export const reservationSlice = createSlice({
   },
 });
 
-export const { setAllReservations, setRezervationDetails, addNewRezervation } =
-  reservationSlice.actions;
+export const {
+  setAllReservations,
+  setMyReservations,
+  setRezervationDetails,
+  addNewRezervation,
+} = reservationSlice.actions;
 
 export default reservationSlice.reducer;

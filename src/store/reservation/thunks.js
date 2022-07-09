@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   addNewRezervation,
   setAllReservations,
+  setMyReservations,
   setRezervationDetails,
 } from "./slice";
 import { appLoading, appDoneLoading } from "../appState/slice";
@@ -14,6 +15,21 @@ export const fetchReservations = () => {
     try {
       const response = await axios.get(`${apiUrl}/reservations`);
       dispatch(setAllReservations(response.data));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+};
+export const fetchMyReservations = () => {
+  return async (dispatch, getState) => {
+    try {
+      const { token } = getState().user;
+      const response = await axios.get(`${apiUrl}/reservations/mine`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(setMyReservations(response.data));
     } catch (e) {
       console.log(e.message);
     }

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { getUserWithStoredToken } from "./store/user/thunks";
 import { Routes, Route } from "react-router-dom";
 import { Navigation, MessageBox } from "./components";
-import { Login, SignUp, Homepage } from "./pages";
+import { Login, SignUp, Homepage, MyAccount } from "./pages";
 import { ReservationRequest } from "./pages/ReservationRequest";
 import { RequestDetails } from "./pages/RequestDetails";
 
@@ -25,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/request" element={<ReservationRequest />} />
         <Route path="/reservations/:id" element={<RequestDetails />} />
+        <Route path="/myaccount" element={<MyAccount />} />
       </Routes>
     </div>
   );

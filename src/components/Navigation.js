@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "../store/user/selectors";
 import { logOut } from "../store/user/slice";
+import { Link } from "react-router-dom";
+//import "../pages/style.css";
 
 export const Navigation = () => {
   const [open, setOpen] = useState(false);
@@ -19,22 +21,40 @@ export const Navigation = () => {
         <span />
         <span />
       </Hamburger>
+
       <Menu open={open}>
         {token ? (
-          <MenuLink onClick={() => dispatch(logOut())}>Logout</MenuLink>
+          <a
+            href="#!logOut"
+            className="menuLink"
+            onClick={() => dispatch(logOut())}
+          >
+            Logout
+          </a>
         ) : (
-          <MenuLink href="/login">Login</MenuLink>
+          <Link to="/login" className="menuLink">
+            Login
+          </Link>
         )}
         {token ? (
-          <MenuLink href="/request">Reservation Request</MenuLink>
+          <Link to="/request" className="menuLink">
+            Reservation Request
+          </Link>
+        ) : null}
+        {token ? (
+          <Link to="/myaccount" className="menuLink" style={{ MenuLink }}>
+            My Account
+          </Link>
         ) : null}
         {/* <MenuLink href="/request">Reservation Request</MenuLink> */}
-        <MenuLink href="/">Home page</MenuLink>
+        <Link to="/" className="menuLink">
+          Home page
+        </Link>
       </Menu>
     </Nav>
   );
 };
-
+//menulink is used in css file
 const MenuLink = styled.a`
   padding: 1rem 2rem;
   cursor: pointer;
