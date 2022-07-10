@@ -23,13 +23,14 @@ export const userSlice = createSlice({
       localStorage.removeItem("profile");
       state.profile = null;
     },
-    tokenStillValid: (state, action) => {
+    updateUserProfile: (state, action) => {
+      console.log("Updating  user profile", action.payload.user);
       state.profile = action.payload.user;
       console.log("Updating user profile", action.payload.user);
     },
   },
 });
 
-export const { loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { loginSuccess, logOut, updateUserProfile } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -9,6 +9,8 @@ import {
 } from "../store/reservation/thunks";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import Status from "../components/Status";
+
 // import { selectToken } from "../store/user/selectors";
 
 export const RequestDetails = () => {
@@ -37,10 +39,14 @@ export const RequestDetails = () => {
         </div>
 
         <div className="p-2 col-example text-left">
+          <p>
+            Status: <Status status={reservationDetail.status} />
+          </p>
           <p>Start Date:{reservationDetail.startDate} </p>
           <p>End Date: {reservationDetail.endDate}</p>
 
           <p>{reservationDetail.description}</p>
+
           <Button
             onClick={() => {
               dispatch(acceptReservation(id));

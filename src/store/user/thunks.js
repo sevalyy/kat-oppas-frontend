@@ -3,7 +3,7 @@ import axios from "axios";
 import { selectToken } from "./selectors";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
-import { loginSuccess, logOut, tokenStillValid } from "./slice";
+import { loginSuccess, logOut, updateUserProfile } from "./slice";
 
 // SIGN UP
 export const signUp = (name, email, password, telephone, aboutMe) => {
@@ -61,7 +61,7 @@ export const login = (email, password) => {
       dispatch(
         loginSuccess({ token: response.data.token, user: response.data.user })
       );
-      dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
+      dispatch(showMessageWithTimeout("success", false, "welcome back!", 3000));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -106,7 +106,7 @@ export const getUserWithStoredToken = () => {
       });
 
       // token is still valid
-      dispatch(tokenStillValid({ user: response.data }));
+      dispatch(updateUserProfile({ user: response.data }));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -118,6 +118,51 @@ export const getUserWithStoredToken = () => {
       // get rid of the token by logging out
       dispatch(logOut());
       dispatch(appDoneLoading());
+    }
+  };
+};
+
+// UPDATE USER INFOS
+export const updateUserInfo = (name, telephone, aboutMe) => {
+  return async (dispatch, getState) => {
+    // get token from the state
+    const token = selectToken(getState());
+
+    // if we have no token, stop
+    if (token === null) return;
+
+    dispatch(appLoading());
+    try {
+      // if we do have a token,
+      // check whether it is still valid or if it is expired
+      const response = await axios.post(
+        `${apiUrl}/auth/me`,
+        { name, telephone, aboutMe },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(updateUserProfile({ user: response.data }));
+      dispatch(
+        showMessageWithTimeout("success", false, "Updated with success!", 5000)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(appDoneLoading());
+      if (error.response && error.response.status < 500) {
+        dispatch(
+          showMessageWithTimeout(
+            "failure",
+            false,
+            "Update failed:" + error.response.data,
+            5000
+          )
+        );
+      } else {
+        dispatch(
+          showMessageWithTimeout("failure", false, "Server error", 5000)
+        );
+      }
     }
   };
 };

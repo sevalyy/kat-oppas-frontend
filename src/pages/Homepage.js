@@ -13,6 +13,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Cat from "../components/Cat";
 import "./style.css";
+
 // import { Row, Button, Col } from "react-bootstrap";
 // use them to create react bootsrap tab button
 export function Homepage() {

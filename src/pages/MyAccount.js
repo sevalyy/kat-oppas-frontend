@@ -6,7 +6,9 @@ import "./style.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { fetchMyReservations } from "../store/reservation/thunks";
+import { updateUserInfo } from "../store/user/thunks";
 import { selectMyReservations } from "../store/reservation/selector";
+import Status from "../components/Status";
 
 export const MyAccount = () => {
   const token = useSelector(selectToken);
@@ -18,12 +20,11 @@ export const MyAccount = () => {
   const [aboutMe, setAboutMe] = useState(userDetails.aboutMe);
   const [telephone, setTelephone] = useState(userDetails.telephone);
 
-  console.log("user details", userDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function submitForm(event) {
     event.preventDefault();
-    // write func. here
+    dispatch(updateUserInfo(name, aboutMe, telephone));
   }
   useEffect(() => {
     if (!userDetails) {
@@ -101,7 +102,8 @@ export const MyAccount = () => {
                 src={r.imageUrl}
                 style={{ height: 100, weight: 100 }}
               />
-              Date: {r.startDate} Status: {r.status}
+              Date: {r.startDate} - {r.endDate} Status:{" "}
+              {<Status status={r.status} />}
             </li>
           );
         })}
