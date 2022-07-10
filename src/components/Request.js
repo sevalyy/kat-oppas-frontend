@@ -26,7 +26,7 @@ export const Request = (props) => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [imageUrl, setImageUrl] = useState(null);
 
-  //************************* */
+  //************************* Add Photo
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
@@ -47,7 +47,7 @@ export const Request = (props) => {
     console.log("Remote url:", file.url); //check if you are getting the url back
     setImageUrl(file.url); //put the url in local state, next step you can send it to the backend
   };
-
+  //***********************
   const todayString = moment().format("YYYY-MM-DD");
 
   const setMyLocation = (newLatitude, newLongitude) => {
@@ -57,8 +57,6 @@ export const Request = (props) => {
     map.flyTo([newLatitude, newLongitude], 15);
     console.log("Flying done ..", map);
   };
-
-  // const navigate = useNavigate();
 
   function submitForm(event) {
     event.preventDefault();
