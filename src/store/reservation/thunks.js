@@ -10,6 +10,7 @@ import { appLoading, appDoneLoading } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
 // import { useNavigate } from "react-router-dom";
 
+// GET ALL REZ.
 export const fetchReservations = () => {
   return async (dispatch, getState) => {
     try {
@@ -20,6 +21,7 @@ export const fetchReservations = () => {
     }
   };
 };
+// GET MY REZ.
 export const fetchMyReservations = () => {
   return async (dispatch, getState) => {
     try {
@@ -35,6 +37,8 @@ export const fetchMyReservations = () => {
     }
   };
 };
+
+// REZ BY ID
 export const fetchReservationById = (id) => {
   return async (dispatch, getState) => {
     try {
@@ -46,6 +50,7 @@ export const fetchReservationById = (id) => {
   };
 };
 
+// ADD NEW REZ.
 export const postNewReservation = (
   startDate,
   endDate,
@@ -99,6 +104,8 @@ export const postNewReservation = (
     }
   };
 };
+
+// ACCEPT A REZ.
 export const acceptReservation = (id) => {
   return async (dispatch, getState) => {
     try {
@@ -125,6 +132,11 @@ export const acceptReservation = (id) => {
       );
     } catch (e) {
       dispatch(appDoneLoading());
+      if (e.response && e.response.data) {
+        dispatch(
+          showMessageWithTimeout("failure", false, e.response.data, 5000)
+        );
+      }
       console.log(e);
     }
   };

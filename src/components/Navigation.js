@@ -24,13 +24,9 @@ export const Navigation = () => {
 
       <Menu open={open}>
         {token ? (
-          <a
-            href="#!logOut"
-            className="menuLink"
-            onClick={() => dispatch(logOut())}
-          >
+          <Link to="/" className="menuLink" onClick={() => dispatch(logOut())}>
             Logout
-          </a>
+          </Link>
         ) : (
           <Link to="/login" className="menuLink">
             Login
