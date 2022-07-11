@@ -9,6 +9,8 @@ import { fetchMyReservations } from "../store/reservation/thunks";
 import { updateUserInfo } from "../store/user/thunks";
 import { selectMyReservations } from "../store/reservation/selector";
 import Status from "../components/Status";
+import moment from "moment";
+import { Link } from "react-router-dom";
 
 export const MyAccount = () => {
   const token = useSelector(selectToken);
@@ -16,16 +18,23 @@ export const MyAccount = () => {
   const userDetails = useSelector(selectUser);
   const myReservations = useSelector(selectMyReservations);
 
+  console.log("user boo", userDetails);
+
   const [name, setName] = useState(userDetails.name);
   const [aboutMe, setAboutMe] = useState(userDetails.aboutMe);
   const [telephone, setTelephone] = useState(userDetails.telephone);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   function submitForm(event) {
     event.preventDefault();
-    dispatch(updateUserInfo(name, aboutMe, telephone));
+    dispatch(updateUserInfo(name, telephone, aboutMe));
   }
+
+  //check today for status "expired"
+  const today = moment().format("YYYY-MM-DD");
+
   useEffect(() => {
     if (!userDetails) {
       navigate("/");
@@ -34,80 +43,108 @@ export const MyAccount = () => {
   }, [userDetails, navigate, dispatch]);
 
   return (
-    <div>
-      <Form>
-        <Form.Group>
-          <Form.Label>Name: </Form.Label>
-          <Form.Control
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            value={name}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Email: </Form.Label>
-          <Form.Control
-            type="text"
-            value={userDetails.email}
-            disabled
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Telephone number: </Form.Label>
-          <Form.Control
-            onChange={(event) => setTelephone(event.target.value)}
-            type="text"
-            value={telephone}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>About me and my cat: </Form.Label>
-          <Form.Control
-            onChange={(event) => setAboutMe(event.target.value)}
-            type="text"
-            value={aboutMe}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>My Credit(s): </Form.Label>
-          <Form.Control
-            type="text"
-            value={userDetails.credits}
-            disabled
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>My Blocked Credit(s): </Form.Label>
-          <Form.Control
-            type="text"
-            value={userDetails.blockedCredits}
-            disabled
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group>
-          <Button type="submit" onClick={submitForm}>
-            Update
-          </Button>
-        </Form.Group>
-      </Form>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div>
+        <h2>User Info</h2>
+        {userDetails && (
+          <Form>
+            <Form.Group>
+              <Form.Label>Name: </Form.Label>
+              <Form.Control
+                onChange={(event) => setName(event.target.value)}
+                type="text"
+                placeholder={userDetails.name}
+                value={name}
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Email: </Form.Label>
+              <Form.Control
+                type="text"
+                value={userDetails.email}
+                disabled
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Telephone number: </Form.Label>
+              <Form.Control
+                onChange={(event) => setTelephone(event.target.value)}
+                type="text"
+                placeholder={userDetails.telephone}
+                value={telephone}
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>About me and my cat: </Form.Label>
+              <Form.Control
+                onChange={(event) => setAboutMe(event.target.value)}
+                placeholder={userDetails.aboutMe}
+                type="text"
+                value={aboutMe}
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>My Credit(s): </Form.Label>
+              <Form.Control
+                type="text"
+                value={userDetails.credits}
+                disabled
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>My Blocked Credit(s): </Form.Label>
+              <Form.Control
+                type="text"
+                value={userDetails.blockedCredits}
+                disabled
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group>
+              <Button type="submit" onClick={submitForm}>
+                Update
+              </Button>
+            </Form.Group>
+          </Form>
+        )}
+      </div>
 
-      <hr />
-      <ul>
-        <h2>My Reservations</h2>
-        {myReservations.map((r) => {
-          return (
-            <li key={r.id}>
-              <img
-                alt="cat"
-                src={r.imageUrl}
-                style={{ height: 100, weight: 100 }}
-              />
-              Date: {r.startDate} - {r.endDate} Status:{" "}
-              {<Status status={r.status} />}
-            </li>
-          );
-        })}
-      </ul>
+      <div>
+        <ul>
+          <h2>My Reservations</h2>
+          {myReservations.map((r) => {
+            return (
+              <li key={r.id}>
+                <img
+                  alt="cat"
+                  src={r.imageUrl}
+                  style={{ height: 100, weight: 100 }}
+                />
+                {/* date = 11/07/2002 , smaller than = 10/07, 09/07*/}
+                {/* if (date == today) */}
+                <p>
+                  {" "}
+                  Status:{" "}
+                  {/* {
+                  <Status
+                    status={
+                      r.startDate < today ? r.status === "Expired" : r.status
+                    }
+                  />
+                } */}
+                  {<Status status={r.status} />}
+                </p>
+
+                <p>
+                  {" "}
+                  Date: {r.startDate} - {r.endDate}
+                </p>
+                <Link to={`/reservations/${r.id}`}>details</Link>
+                <hr />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

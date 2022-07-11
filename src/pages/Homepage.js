@@ -94,6 +94,11 @@ export function Homepage() {
                   >
                     {" "}
                     <Popup>
+                      <img
+                        src={reservation.imageUrl}
+                        alt="cat"
+                        style={{ height: 40, weight: 40 }}
+                      />
                       <p>
                         from {reservation.startDate} to {reservation.endDate}
                       </p>

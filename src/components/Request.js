@@ -108,26 +108,6 @@ export const Request = (props) => {
     <div>
       <Form>
         <Form.Group>
-          <Form.Label>Cat's image: </Form.Label>
-          <Form.Control type="file" size="sm" onChange={uploadImage} />
-          <div>
-            <Image
-              style={{ height: 100, weight: 100 }}
-              src={
-                imageUrl
-                  ? imageUrl
-                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-              }
-            />
-            {imageUrl ? (
-              <p style={{ fontSize: 20 }}>Succesfully uploaded!</p>
-            ) : (
-              ""
-            )}
-          </div>
-        </Form.Group>
-
-        <Form.Group>
           <Form.Label>Start Date: </Form.Label>
           <Form.Control
             onChange={(event) => setStartDate(event.target.value)}
@@ -154,6 +134,29 @@ export const Request = (props) => {
             type="text"
             value={description}
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Cat's image: </Form.Label>
+          <Form.Control type="file" size="sm" onChange={uploadImage} />
+          <div>
+            <Image
+              style={{ height: 100, weight: 100 }}
+              src={
+                imageUrl
+                  ? imageUrl
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+              }
+            />
+            {imageUrl ? (
+              <p style={{ fontSize: 14, color: "darkgreen" }}>
+                Succesfully uploaded!
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
+        </Form.Group>
+        <Form.Group>
           <MapContainer
             center={[52.35, 4.86]}
             zoom={12}
@@ -182,10 +185,9 @@ export const Request = (props) => {
               ></Marker>
             )}
           </MapContainer>
+
+          <LocationFinder onPositionFound={setMyLocation} />
         </Form.Group>
-
-        <LocationFinder onPositionFound={setMyLocation} />
-
         <Form.Group>
           <Button type="submit" onClick={submitForm}>
             Submit
