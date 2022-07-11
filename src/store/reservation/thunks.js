@@ -8,6 +8,7 @@ import {
 } from "./slice";
 import { appLoading, appDoneLoading } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
+import { updateUserProfile } from "../user/slice";
 // import { useNavigate } from "react-router-dom";
 
 // GET ALL REZ.
@@ -89,16 +90,28 @@ export const postNewReservation = (
           5000
         )
       );
+
+      // update local user details's credits
+      const creditsSpent = response.data.creditsCost;
+      const currentUserDetails = { ...getState().user.profile };
+      currentUserDetails.credits -= creditsSpent;
+      dispatch(updateUserProfile({ user: currentUserDetails }));
+
       // push new rez. to allRez. with artPostSucces from slice.
       dispatch(addNewRezervation(response.data));
       dispatch(appDoneLoading());
     } catch (e) {
       dispatch(appDoneLoading());
-      console.log("response for bad request");
+      console.log("Error in postNewReservation", e);
       //show bad request response in the temporary message area.
-      if (e.response && e.response.data) {
+
+      if (e.response && e.response.status < 500) {
         dispatch(
           showMessageWithTimeout("failure", false, e.response.data, 5000)
+        );
+      } else {
+        dispatch(
+          showMessageWithTimeout("failure", false, "Server error.", 5000)
         );
       }
     }

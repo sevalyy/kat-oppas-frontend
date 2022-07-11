@@ -100,8 +100,13 @@ export const Request = (props) => {
         imageUrl
       )
     );
-    //setDescription("");
-    //setImageUrl(null);
+    //TODO Only clear form if postNewReservation ran wuth success
+    setDescription("");
+    setImageUrl(
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+    );
+    setStartDate(moment().format("YYYY-MM-DD"));
+    setEndDate(moment().add(1, "days").format("YYYY-MM-DD"));
     // navigate("/");
   }
 
@@ -155,13 +160,21 @@ export const Request = (props) => {
           <Form.Label>Credits: </Form.Label>
           <Form.Control
             style={
-              userDetails.credits < calculateCredits()
+              userDetails &&
+              userDetails.credits - userDetails.blockedCredits <
+                calculateCredits()
                 ? { backgroundColor: "red" }
                 : { backgroundColor: "white" }
             }
             disabled
             type="text"
-            value={calculateCredits() + "/" + userDetails.credits}
+            value={
+              calculateCredits() +
+              "/" +
+              (userDetails
+                ? userDetails.credits - userDetails.blockedCredits
+                : 0)
+            }
           />
         </Form.Group>
 
