@@ -10,6 +10,8 @@ import { MapContainer } from "react-leaflet/MapContainer";
 import { TileLayer } from "react-leaflet/TileLayer";
 import { Marker } from "react-leaflet";
 import moment from "moment";
+import { selectUser } from "../store/user/selectors";
+import { useSelector } from "react-redux";
 import { Image } from "react-bootstrap";
 import L from "leaflet";
 import { showMessageWithTimeout } from "../store/appState/thunks";
@@ -19,12 +21,33 @@ import { showMessageWithTimeout } from "../store/appState/thunks";
 
 export const Request = (props) => {
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState(null);
-  const [map, setMap] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const userDetails = useSelector(selectUser);
+  const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
+  const [endDate, setEndDate] = useState(
+    moment().add(1, "days").format("YYYY-MM-DD")
+  );
   const [description, setDescription] = useState("");
   const [selectedLocation, setSelectedLocation] = useState();
   const [imageUrl, setImageUrl] = useState(null);
+  const [map, setMap] = useState(null);
+
+  const calculateCredits = () => {
+    if (!startDate || !endDate) {
+      return 0;
+    }
+
+    const sDate = new Date(startDate);
+    const eDate = new Date(endDate);
+
+    const diffTime = eDate - sDate;
+    if (diffTime < 0) {
+      return 0;
+    }
+
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log(eDate, "-", sDate, "=", diffDays);
+    return diffDays + 1;
+  };
 
   //************************* Add Photo
   const uploadImage = async (e) => {
@@ -48,7 +71,6 @@ export const Request = (props) => {
     setImageUrl(file.url); //put the url in local state, next step you can send it to the backend
   };
   //***********************
-  const todayString = moment().format("YYYY-MM-DD");
 
   const setMyLocation = (newLatitude, newLongitude) => {
     console.log("Before Flying to ..");
@@ -78,8 +100,8 @@ export const Request = (props) => {
         imageUrl
       )
     );
-    setDescription("");
-    setImageUrl(null);
+    //setDescription("");
+    //setImageUrl(null);
     // navigate("/");
   }
 
@@ -112,8 +134,9 @@ export const Request = (props) => {
           <Form.Control
             onChange={(event) => setStartDate(event.target.value)}
             type="date"
-            min={todayString}
-            max="2023-12-31"
+            value={startDate}
+            min={endDate}
+            max="2029-12-31"
           />
         </Form.Group>
 
@@ -122,8 +145,23 @@ export const Request = (props) => {
           <Form.Control
             onChange={(event) => setEndDate(event.target.value)}
             type="date"
-            min={todayString} //start date
-            max="2023-12-31"
+            value={endDate}
+            min={startDate} //start date
+            max="2029-12-31"
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Credits: </Form.Label>
+          <Form.Control
+            style={
+              userDetails.credits < calculateCredits()
+                ? { backgroundColor: "red" }
+                : { backgroundColor: "white" }
+            }
+            disabled
+            type="text"
+            value={calculateCredits() + "/" + userDetails.credits}
           />
         </Form.Group>
 

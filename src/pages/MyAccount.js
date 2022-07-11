@@ -33,7 +33,7 @@ export const MyAccount = () => {
   }
 
   //check today for status "expired"
-  const today = moment().format("YYYY-MM-DD");
+  // const today = moment().format("YYYY-MM-DD");
 
   useEffect(() => {
     if (!userDetails) {
@@ -43,8 +43,8 @@ export const MyAccount = () => {
   }, [userDetails, navigate, dispatch]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <div>
+    <div style={{ display: "flex", justifyContent: "left" }}>
+      <div style={{}}>
         <h2>User Info</h2>
         {userDetails && (
           <Form>
@@ -111,38 +111,46 @@ export const MyAccount = () => {
       <div>
         <ul>
           <h2>My Reservations</h2>
-          {myReservations.map((r) => {
-            return (
-              <li key={r.id}>
-                <img
-                  alt="cat"
-                  src={r.imageUrl}
-                  style={{ height: 100, weight: 100 }}
-                />
-                {/* date = 11/07/2002 , smaller than = 10/07, 09/07*/}
-                {/* if (date == today) */}
-                <p>
-                  {" "}
-                  Status:{" "}
-                  {/* {
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {myReservations.map((r) => {
+              return (
+                <li key={r.id}>
+                  <img
+                    alt="cat"
+                    src={r.imageUrl}
+                    style={{ height: 100, weight: 100 }}
+                  />
+                  {/* date = 11/07/2002 , smaller than = 10/07, 09/07*/}
+                  {/* if (date == today) */}
+                  <p>
+                    {" "}
+                    Status:{" "}
+                    {/* {
                   <Status
                     status={
                       r.startDate < today ? r.status === "Expired" : r.status
                     }
                   />
                 } */}
-                  {<Status status={r.status} />}
-                </p>
+                    {<Status status={r.status} />}
+                  </p>
 
-                <p>
-                  {" "}
-                  Date: {r.startDate} - {r.endDate}
-                </p>
-                <Link to={`/reservations/${r.id}`}>details</Link>
-                <hr />
-              </li>
-            );
-          })}
+                  <p>
+                    {" "}
+                    Date: {r.startDate} - {r.endDate}
+                  </p>
+                  <Link to={`/reservations/${r.id}`}>details</Link>
+                  <hr />
+                </li>
+              );
+            })}
+          </div>
         </ul>
       </div>
     </div>

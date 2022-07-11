@@ -23,15 +23,10 @@ export const Navigation = () => {
       </Hamburger>
 
       <Menu open={open}>
-        {token ? (
-          <Link to="/" className="menuLink" onClick={() => dispatch(logOut())}>
-            Logout
-          </Link>
-        ) : (
-          <Link to="/login" className="menuLink">
-            Login
-          </Link>
-        )}
+        <Link to="/" className="menuLink">
+          Home page
+        </Link>
+
         {token ? (
           <Link to="/request" className="menuLink">
             Reservation Request
@@ -42,10 +37,16 @@ export const Navigation = () => {
             My Account
           </Link>
         ) : null}
+        {token ? (
+          <Link to="/" className="menuLink" onClick={() => dispatch(logOut())}>
+            Logout
+          </Link>
+        ) : (
+          <Link to="/login" className="menuLink">
+            Login
+          </Link>
+        )}
         {/* <MenuLink href="/request">Reservation Request</MenuLink> */}
-        <Link to="/" className="menuLink">
-          Home page
-        </Link>
       </Menu>
     </Nav>
   );

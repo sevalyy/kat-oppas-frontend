@@ -115,19 +115,27 @@ export function Homepage() {
           <div>
             <h1>Here our lovely friends 🐈‍⬛ </h1>
             <hr />
-            {reservations.map((reservation) => {
-              return (
-                <Cat
-                  key={reservation.id}
-                  id={reservation.id}
-                  startDate={reservation.startDate}
-                  endDate={reservation.endDate}
-                  imageUrl={reservation.imageUrl}
-                  // lattitude={reservation.latitude}
-                  // longitude={reservation.longitude}
-                />
-              );
-            })}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {reservations.map((reservation) => {
+                return (
+                  <Cat
+                    key={reservation.id}
+                    id={reservation.id}
+                    startDate={reservation.startDate}
+                    endDate={reservation.endDate}
+                    imageUrl={reservation.imageUrl}
+                    // lattitude={reservation.latitude}
+                    // longitude={reservation.longitude}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
