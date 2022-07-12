@@ -22,6 +22,10 @@ export const reservationSlice = createSlice({
     addNewRezervation: (state, action) => {
       state.allReservations.push(action.payload);
     },
+    changeStatus: (state, action) => {
+      state.reservationDetails.status = 1;
+      state.reservationDetails.providerId = action.payload;
+    },
   },
 });
 
@@ -30,6 +34,7 @@ export const {
   setMyReservations,
   setRezervationDetails,
   addNewRezervation,
+  changeStatus,
 } = reservationSlice.actions;
 
 export default reservationSlice.reducer;

@@ -33,7 +33,7 @@ export const MyAccount = () => {
   }
 
   //check today for status "expired"
-  // const today = moment().format("YYYY-MM-DD");
+  const today = new Date();
 
   useEffect(() => {
     if (!userDetails) {

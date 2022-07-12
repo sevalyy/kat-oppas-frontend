@@ -1,7 +1,8 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import ReactTooltip from "react-tooltip";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 import { postNewReservation } from "../store/reservation/thunks";
@@ -31,12 +32,18 @@ export const Request = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [map, setMap] = useState(null);
 
+  const creditField = useRef();
+  //**********  CALCULATE CREDITS
   const calculateCredits = () => {
     if (!startDate || !endDate) {
       return 0;
     }
 
     const sDate = new Date(startDate);
+    const today = new Date();
+    console.log("start date is changes in date format", sDate);
+    console.log("today in date format", today);
+
     const eDate = new Date(endDate);
 
     const diffTime = eDate - sDate;
@@ -48,8 +55,9 @@ export const Request = (props) => {
     console.log(eDate, "-", sDate, "=", diffDays);
     return diffDays + 1;
   };
+  //********** END
 
-  //************************* Add Photo
+  //********** ADD PHOTO
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
@@ -70,8 +78,9 @@ export const Request = (props) => {
     console.log("Remote url:", file.url); //check if you are getting the url back
     setImageUrl(file.url); //put the url in local state, next step you can send it to the backend
   };
-  //***********************
+  //************ END
 
+  //************ END - SET LOCATION
   const setMyLocation = (newLatitude, newLongitude) => {
     console.log("Before Flying to ..");
     setSelectedLocation({ latitude: newLatitude, longitude: newLongitude });
@@ -131,8 +140,21 @@ export const Request = (props) => {
     shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
   });
 
+  const notEnoughCredits =
+    userDetails &&
+    userDetails.credits - userDetails.blockedCredits < calculateCredits();
+
+  if (notEnoughCredits) {
+    console.log("heelloooo");
+    ReactTooltip.show(creditField.current);
+    setTimeout(() => {
+      ReactTooltip.hide(creditField.current);
+    }, 2000);
+  }
+
   return (
     <div>
+      <ReactTooltip place="right" />
       <Form>
         <Form.Group>
           <Form.Label>Start Date: </Form.Label>
@@ -158,15 +180,33 @@ export const Request = (props) => {
 
         <Form.Group>
           <Form.Label>Credits: </Form.Label>
-          <Form.Control
+          {/* <input
             style={
-              userDetails &&
-              userDetails.credits - userDetails.blockedCredits <
-                calculateCredits()
+              notEnoughCredits
                 ? { backgroundColor: "red" }
                 : { backgroundColor: "white" }
             }
             disabled
+            data-tip="You do not have enough credits for this request"
+            ref={creditField}
+            type="text"
+            value={
+              calculateCredits() +
+              "/" +
+              (userDetails
+                ? userDetails.credits - userDetails.blockedCredits
+                : 0)
+            }
+          /> */}
+          <Form.Control
+            style={
+              notEnoughCredits
+                ? { backgroundColor: "red" }
+                : { backgroundColor: "white" }
+            }
+            disabled
+            data-tip="You do not have enough credits for this request"
+            ref={creditField}
             type="text"
             value={
               calculateCredits() +
@@ -176,6 +216,7 @@ export const Request = (props) => {
                 : 0)
             }
           />
+          {notEnoughCredits && <div>You don't seem to have enough credits</div>}
         </Form.Group>
 
         <Form.Group>
@@ -208,6 +249,8 @@ export const Request = (props) => {
           </div>
         </Form.Group>
         <Form.Group>
+          <LocationFinder onPositionFound={setMyLocation} />
+
           <MapContainer
             center={[52.35, 4.86]}
             zoom={12}
@@ -236,8 +279,6 @@ export const Request = (props) => {
               ></Marker>
             )}
           </MapContainer>
-
-          <LocationFinder onPositionFound={setMyLocation} />
         </Form.Group>
         <Form.Group>
           <Button type="submit" onClick={submitForm}>

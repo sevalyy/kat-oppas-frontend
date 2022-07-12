@@ -5,6 +5,7 @@ import {
   setAllReservations,
   setMyReservations,
   setRezervationDetails,
+  changeStatus,
 } from "./slice";
 import { appLoading, appDoneLoading } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
@@ -122,10 +123,13 @@ export const postNewReservation = (
 export const acceptReservation = (id) => {
   return async (dispatch, getState) => {
     try {
-      const { token } = getState().user;
+      const {
+        token,
+        profile: { id },
+      } = getState().user;
       dispatch(appLoading());
 
-      await axios.post(
+      const response = await axios.post(
         `${apiUrl}/reservations/${id}/accept`,
         {},
         {
@@ -143,6 +147,9 @@ export const acceptReservation = (id) => {
           5000
         )
       );
+
+      console.log("accepted", response.data);
+      dispatch(changeStatus(id));
     } catch (e) {
       dispatch(appDoneLoading());
       if (e.response && e.response.data) {
