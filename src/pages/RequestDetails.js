@@ -132,6 +132,14 @@ export const RequestDetails = () => {
                 Approve
               </Button>
             )}
+
+          {reservationDetail.transaction && (
+            <div>
+              {reservationDetail.transaction.reason}:{" "}
+              <b>{reservationDetail.transaction.creditsChange} </b>@{" "}
+              {reservationDetail.transaction.createdAt}
+            </div>
+          )}
         </div>
       </Container>
     </Container>
