@@ -39,7 +39,7 @@ export const MyAccount = () => {
   }, [userDetails, navigate, dispatch]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "left" }}>
+    <div style={{ display: "flex", justifyContent: "spaceAround", margin: 30 }}>
       <div style={{}}>
         <h2>User Info</h2>
         {userDetails && (

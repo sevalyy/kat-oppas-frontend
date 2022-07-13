@@ -92,10 +92,7 @@ export const postNewReservation = (
       );
 
       // update local user details's credits
-      const creditsSpent = response.data.creditsCost;
-      const currentUserDetails = { ...getState().user.profile };
-      currentUserDetails.credits -= creditsSpent;
-      dispatch(updateUserProfile({ user: currentUserDetails }));
+      dispatch(updateUserProfile({ user: response.data.requester }));
 
       // push new rez. to allRez. with artPostSucces from slice.
       dispatch(addNewRezervation(response.data));
@@ -163,7 +160,7 @@ export const acceptReservation = (id) => {
 export const cancelReservation = (id) => {
   return async (dispatch, getState) => {
     try {
-      const { token } = getState().user;
+      const { token, profile } = getState().user;
       dispatch(appLoading());
 
       const response = await axios.post(
@@ -177,6 +174,12 @@ export const cancelReservation = (id) => {
       );
 
       console.log("canceled rez.", response.data);
+
+      if (profile.id === response.data.requester.id) {
+        console.log("Removing blocked credits");
+        dispatch(updateUserProfile({ user: response.data.requester }));
+      }
+
       dispatch(setRezervationDetails(response.data));
 
       dispatch(appDoneLoading());
