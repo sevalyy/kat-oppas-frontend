@@ -7,6 +7,7 @@ import {
   fetchReservationById,
   acceptReservation,
   cancelReservation,
+  approveReservation,
 } from "../store/reservation/thunks";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -124,9 +125,9 @@ export const RequestDetails = () => {
             reservationDetail.requesterUserId === user.id &&
             isTodayLaterThenEndDate(reservationDetail.endDate) && (
               <Button
-              // onClick={() => {
-              //   dispatch(approveReservation(id));
-              // }}
+                onClick={() => {
+                  dispatch(approveReservation(id));
+                }}
               >
                 Approve
               </Button>

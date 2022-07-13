@@ -8,9 +8,7 @@ import Button from "react-bootstrap/Button";
 import { fetchMyReservations } from "../store/reservation/thunks";
 import { updateUserInfo } from "../store/user/thunks";
 import { selectMyReservations } from "../store/reservation/selector";
-import Status from "../components/Status";
-import { Link } from "react-router-dom";
-
+import CatList from "../components/CatList";
 export const MyAccount = () => {
   const token = useSelector(selectToken);
   console.log("user token", token);
@@ -104,78 +102,16 @@ export const MyAccount = () => {
         )}
       </div>
 
-      <div>
-        <ul>
-          <h2>My Reservations</h2>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            {myReservations
-              .filter(
-                (myReservations) =>
-                  myReservations.requesterUserId === userDetails.id
-              )
-              .map((r) => {
-                return (
-                  <li key={r.id}>
-                    <img
-                      alt="cat"
-                      src={r.imageUrl}
-                      style={{ height: 100, weight: 100 }}
-                    />
-                    <p>Status:{<Status status={r.status} />}</p>
-
-                    <p>
-                      Date: {r.startDate} - {r.endDate}
-                    </p>
-                    <Link to={`/reservations/${r.id}`}>details</Link>
-                    <hr />
-                  </li>
-                );
-              })}
-          </div>
-        </ul>
-      </div>
-      <div>
-        <ul>
-          <h2>Cats 🐾 I Take Care Of</h2>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            {myReservations
-              .filter(
-                (myReservations) =>
-                  myReservations.providerUserId === userDetails.id
-              )
-              .map((r) => {
-                return (
-                  <li key={r.id}>
-                    <img
-                      alt="cat"
-                      src={r.imageUrl}
-                      style={{ height: 100, weight: 100 }}
-                    />
-                    <p>Status:{<Status status={r.status} />}</p>
-
-                    <p>
-                      Date: {r.startDate} - {r.endDate}
-                    </p>
-                    <Link to={`/reservations/${r.id}`}>details</Link>
-                    <hr />
-                  </li>
-                );
-              })}
-          </div>
-        </ul>
-      </div>
+      <CatList
+        title="My Reservations"
+        reservations={myReservations}
+        filterReservations={(myRes) => myRes.requesterUserId === userDetails.id}
+      />
+      <CatList
+        title="Cats 🐾 I Take Care Of"
+        reservations={myReservations}
+        filterReservations={(myRes) => myRes.providerUserId === userDetails.id}
+      />
     </div>
   );
 };

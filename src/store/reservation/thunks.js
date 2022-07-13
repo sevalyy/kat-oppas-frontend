@@ -207,3 +207,44 @@ export const cancelReservation = (id) => {
     }
   };
 };
+
+// APPROVE A REZ.
+export const approveReservation = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      const { token } = getState().user;
+      dispatch(appLoading());
+
+      const response = await axios.post(
+        `${apiUrl}/reservations/${id}/approve`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("approved", response.data);
+      dispatch(setRezervationDetails(response.data));
+
+      dispatch(appDoneLoading());
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          false,
+          "You approved reservation successfully",
+          5000
+        )
+      );
+    } catch (e) {
+      dispatch(appDoneLoading());
+      if (e.response && e.response.data) {
+        dispatch(
+          showMessageWithTimeout("failure", false, e.response.data, 5000)
+        );
+      }
+      console.log(e);
+    }
+  };
+};
