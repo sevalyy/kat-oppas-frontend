@@ -123,10 +123,7 @@ export const postNewReservation = (
 export const acceptReservation = (id) => {
   return async (dispatch, getState) => {
     try {
-      const {
-        token,
-        profile: { id },
-      } = getState().user;
+      const { token } = getState().user;
       dispatch(appLoading());
 
       const response = await axios.post(
@@ -138,6 +135,10 @@ export const acceptReservation = (id) => {
           },
         }
       );
+
+      console.log("accepted", response.data);
+      dispatch(setRezervationDetails(response.data));
+
       dispatch(appDoneLoading());
       dispatch(
         showMessageWithTimeout(
@@ -147,9 +148,6 @@ export const acceptReservation = (id) => {
           5000
         )
       );
-
-      console.log("accepted", response.data);
-      dispatch(changeStatus(id));
     } catch (e) {
       dispatch(appDoneLoading());
       if (e.response && e.response.data) {
