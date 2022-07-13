@@ -9,7 +9,6 @@ import { fetchMyReservations } from "../store/reservation/thunks";
 import { updateUserInfo } from "../store/user/thunks";
 import { selectMyReservations } from "../store/reservation/selector";
 import Status from "../components/Status";
-import moment from "moment";
 import { Link } from "react-router-dom";
 
 export const MyAccount = () => {
@@ -31,9 +30,6 @@ export const MyAccount = () => {
     event.preventDefault();
     dispatch(updateUserInfo(name, telephone, aboutMe));
   }
-
-  //check today for status "expired"
-  const today = new Date();
 
   useEffect(() => {
     if (!userDetails) {
@@ -118,38 +114,65 @@ export const MyAccount = () => {
               flexWrap: "wrap",
             }}
           >
-            {myReservations.map((r) => {
-              return (
-                <li key={r.id}>
-                  <img
-                    alt="cat"
-                    src={r.imageUrl}
-                    style={{ height: 100, weight: 100 }}
-                  />
-                  {/* date = 11/07/2002 , smaller than = 10/07, 09/07*/}
-                  {/* if (date == today) */}
-                  <p>
-                    {" "}
-                    Status:{" "}
-                    {/* {
-                  <Status
-                    status={
-                      r.startDate < today ? r.status === "Expired" : r.status
-                    }
-                  />
-                } */}
-                    {<Status status={r.status} />}
-                  </p>
+            {myReservations
+              .filter(
+                (myReservations) =>
+                  myReservations.requesterUserId === userDetails.id
+              )
+              .map((r) => {
+                return (
+                  <li key={r.id}>
+                    <img
+                      alt="cat"
+                      src={r.imageUrl}
+                      style={{ height: 100, weight: 100 }}
+                    />
+                    <p>Status:{<Status status={r.status} />}</p>
 
-                  <p>
-                    {" "}
-                    Date: {r.startDate} - {r.endDate}
-                  </p>
-                  <Link to={`/reservations/${r.id}`}>details</Link>
-                  <hr />
-                </li>
-              );
-            })}
+                    <p>
+                      Date: {r.startDate} - {r.endDate}
+                    </p>
+                    <Link to={`/reservations/${r.id}`}>details</Link>
+                    <hr />
+                  </li>
+                );
+              })}
+          </div>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <h2>Cats 🐾 I Take Care Of</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {myReservations
+              .filter(
+                (myReservations) =>
+                  myReservations.providerUserId === userDetails.id
+              )
+              .map((r) => {
+                return (
+                  <li key={r.id}>
+                    <img
+                      alt="cat"
+                      src={r.imageUrl}
+                      style={{ height: 100, weight: 100 }}
+                    />
+                    <p>Status:{<Status status={r.status} />}</p>
+
+                    <p>
+                      Date: {r.startDate} - {r.endDate}
+                    </p>
+                    <Link to={`/reservations/${r.id}`}>details</Link>
+                    <hr />
+                  </li>
+                );
+              })}
           </div>
         </ul>
       </div>

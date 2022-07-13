@@ -5,7 +5,6 @@ import {
   setAllReservations,
   setMyReservations,
   setRezervationDetails,
-  changeStatus,
 } from "./slice";
 import { appLoading, appDoneLoading } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
