@@ -24,9 +24,7 @@ export const Request = (props) => {
   const dispatch = useDispatch();
   const userDetails = useSelector(selectUser);
   const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
-  const [endDate, setEndDate] = useState(
-    moment().add(1, "days").format("YYYY-MM-DD")
-  );
+  const [endDate, setEndDate] = useState(moment().format("YYYY-MM-DD"));
   const [description, setDescription] = useState("");
   const [selectedLocation, setSelectedLocation] = useState();
   const [imageUrl, setImageUrl] = useState(null);
@@ -115,7 +113,7 @@ export const Request = (props) => {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
     );
     setStartDate(moment().format("YYYY-MM-DD"));
-    setEndDate(moment().add(1, "days").format("YYYY-MM-DD"));
+    setEndDate(moment().format("YYYY-MM-DD"));
     // navigate("/");
   }
 
