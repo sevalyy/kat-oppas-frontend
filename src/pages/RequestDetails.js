@@ -53,15 +53,30 @@ export const RequestDetails = () => {
 
           <p>About the cat: {reservationDetail.description}</p>
 
-          {token && reservationDetail.status === 0 ? (
-            <Button
-              onClick={() => {
-                dispatch(acceptReservation(id));
-              }}
-            >
-              Accept
-            </Button>
-          ) : null}
+          {token &&
+            reservationDetail.status === 0 &&
+            user.id === reservationDetail.requesterUserId && (
+              <Button
+                onClick={() => {
+                  dispatch(cancelReservation(id));
+                }}
+              >
+                Cancel
+              </Button>
+            )}
+
+          {token &&
+            reservationDetail.status === 0 &&
+            user.id !== reservationDetail.requesterUserId && (
+              <Button
+                onClick={() => {
+                  dispatch(acceptReservation(id));
+                }}
+              >
+                Accept
+              </Button>
+            )}
+
           {reservationDetail.status === 1 &&
           (reservationDetail.providerUserId === user.id ||
             reservationDetail.requesterUserId === user.id) ? (
