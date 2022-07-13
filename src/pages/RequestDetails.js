@@ -6,6 +6,7 @@ import { selectReservationDetails } from "../store/reservation/selector";
 import {
   fetchReservationById,
   acceptReservation,
+  cancelReservation,
 } from "../store/reservation/thunks";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -64,7 +65,13 @@ export const RequestDetails = () => {
           {reservationDetail.status === 1 &&
           (reservationDetail.providerUserId === user.id ||
             reservationDetail.requesterUserId === user.id) ? (
-            <Button>Cancel</Button>
+            <Button
+              onClick={() => {
+                dispatch(cancelReservation(id));
+              }}
+            >
+              Cancel
+            </Button>
           ) : null}
         </div>
       </Container>

@@ -159,3 +159,49 @@ export const acceptReservation = (id) => {
     }
   };
 };
+
+// CANCEL A REZ.
+export const cancelReservation = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      const { token } = getState().user;
+      dispatch(appLoading());
+
+      const response = await axios.post(
+        `${apiUrl}/reservations/${id}/cancel`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("canceled rez.", response.data);
+      dispatch(setRezervationDetails(response.data));
+
+      dispatch(appDoneLoading());
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          false,
+          "You canceled reservation successfully",
+          5000
+        )
+      );
+    } catch (e) {
+      dispatch(appDoneLoading());
+      if (e.response && e.response.data) {
+        dispatch(
+          showMessageWithTimeout(
+            "something wrong! try again later",
+            false,
+            e.response.data,
+            5000
+          )
+        );
+      }
+      console.log(e);
+    }
+  };
+};
