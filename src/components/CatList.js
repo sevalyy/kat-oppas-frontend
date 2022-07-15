@@ -1,6 +1,5 @@
 import React from "react";
-// import Button from "react-bootstrap/Button";
-import Cat from "../components/Cat";
+import CompactCat from "../components/CompactCat";
 export default function CatList(props) {
   return (
     <div>
@@ -20,8 +19,8 @@ export default function CatList(props) {
             )
             .map((r) => {
               return (
-                <li key={r.id}>
-                  <Cat
+                <li key={r.id} style={{ "list-style-type": "none" }}>
+                  <CompactCat
                     key={r.id}
                     id={r.id}
                     status={r.status}

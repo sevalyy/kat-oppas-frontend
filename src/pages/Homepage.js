@@ -13,6 +13,9 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Cat from "../components/Cat";
 import "./style.css";
+import { Button } from "../styled";
+import { Input, Title, LinkWord } from "../styled";
+import { Col, Container, Row } from "react-bootstrap";
 
 // import { Row, Button, Col } from "react-bootstrap";
 // use them to create react bootsrap tab button
@@ -47,99 +50,122 @@ export function Homepage() {
   }, [dispatch]);
 
   return (
-    <div>
+    <>
       <div className="tabs">
         <button
           className={`tab ${checkActive(0, "active")}`}
           onClick={() => handleClick(0)}
         >
-          Map
+          See on Map
         </button>
         <button
           className={`tab ${checkActive(1, "active")}`}
           onClick={() => handleClick(1)}
         >
-          List{" "}
+          See as a List{" "}
         </button>
       </div>
-
-      <div className="panels">
-        <div className={`panel ${checkActive(0, "active")}`}>
-          <div>
-            <LocationFinder onPositionFound={setMapPosition} />
-            <MapContainer
-              center={[52.35, 4.86]}
-              zoom={12}
-              scrollWheelZoom={true}
-              ref={setMap}
-              style={{
-                border: "2px solid",
-                borderRadius: "10px",
-                height: "50vw",
-                width: "60vw",
-                maxWidth: "600px",
-                maxHeight: "600px",
-                margin: "20px 19.5%",
-              }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {reservations &&
-                reservations.map((reservation) => (
-                  <Marker
-                    key={reservation.id}
-                    position={[reservation.latitude, reservation.longitude]}
+      <Container>
+        <Row>
+          <div className="panels">
+            <div className={`panel ${checkActive(0, "active")}`}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: 30,
+                }}
+              >
+                <Col>
+                  <LocationFinder onPositionFound={setMapPosition} />
+                  <p>
+                    Let's see who needs some cuddle! <br />
+                    Either zoom in your current location with "My Location"
+                    button, <br />
+                    Or use map to see all cats
+                  </p>
+                </Col>
+                <Col xs={9}>
+                  <MapContainer
+                    center={[52.35, 4.86]}
+                    zoom={12}
+                    scrollWheelZoom={true}
+                    ref={setMap}
+                    style={{
+                      border: "2px solid",
+                      borderRadius: "10px",
+                      height: "50vw",
+                      width: "60vw",
+                      maxWidth: "600px",
+                      maxHeight: "600px",
+                      margin: "20px 19.5%",
+                    }}
                   >
-                    {" "}
-                    <Popup>
-                      <img
-                        src={reservation.imageUrl}
-                        alt="cat"
-                        style={{ height: 40, weight: 40 }}
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {reservations &&
+                      reservations.map((reservation) => (
+                        <Marker
+                          key={reservation.id}
+                          position={[
+                            reservation.latitude,
+                            reservation.longitude,
+                          ]}
+                        >
+                          {" "}
+                          <Popup>
+                            <img
+                              src={reservation.imageUrl}
+                              alt="cat"
+                              style={{ height: 40, weight: 40 }}
+                            />
+                            <p>
+                              from {reservation.startDate} to{" "}
+                              {reservation.endDate}
+                            </p>
+                            <Link to={`/reservations/${reservation.id}`}>
+                              details
+                            </Link>
+                          </Popup>
+                        </Marker>
+                      ))}
+                  </MapContainer>
+                </Col>
+              </div>
+            </div>
+            <div className={`panel ${checkActive(1, "active")}`}>
+              <div>
+                <Title>Here our lovely friends 🐈‍⬛ </Title>
+                <hr />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {reservations.map((reservation) => {
+                    return (
+                      <Cat
+                        key={reservation.id}
+                        id={reservation.id}
+                        startDate={reservation.startDate}
+                        endDate={reservation.endDate}
+                        imageUrl={reservation.imageUrl}
+                        status={reservation.status}
+                        // lattitude={reservation.latitude}
+                        // longitude={reservation.longitude}
                       />
-                      <p>
-                        from {reservation.startDate} to {reservation.endDate}
-                      </p>
-                      <Link to={`/reservations/${reservation.id}`}>
-                        details
-                      </Link>
-                    </Popup>
-                  </Marker>
-                ))}
-            </MapContainer>
-          </div>
-        </div>
-        <div className={`panel ${checkActive(1, "active")}`}>
-          <div>
-            <h1>Here our lovely friends 🐈‍⬛ </h1>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-              }}
-            >
-              {reservations.map((reservation) => {
-                return (
-                  <Cat
-                    key={reservation.id}
-                    id={reservation.id}
-                    startDate={reservation.startDate}
-                    endDate={reservation.endDate}
-                    imageUrl={reservation.imageUrl}
-                    status={reservation.status}
-                    // lattitude={reservation.latitude}
-                    // longitude={reservation.longitude}
-                  />
-                );
-              })}
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </Row>
+      </Container>
+    </>
   );
 }

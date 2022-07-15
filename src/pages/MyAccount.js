@@ -9,6 +9,7 @@ import { fetchMyReservations } from "../store/reservation/thunks";
 import { updateUserInfo } from "../store/user/thunks";
 import { selectMyReservations } from "../store/reservation/selector";
 import CatList from "../components/CatList";
+import { Col, Container, Row } from "react-bootstrap";
 export const MyAccount = () => {
   const token = useSelector(selectToken);
   console.log("user token", token);
@@ -37,81 +38,93 @@ export const MyAccount = () => {
   }, [userDetails, navigate, dispatch]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "spaceAround", margin: 30 }}>
-      <div style={{}}>
-        <h2>User Info</h2>
-        {userDetails && (
-          <Form>
-            <Form.Group>
-              <Form.Label>Name: </Form.Label>
-              <Form.Control
-                onChange={(event) => setName(event.target.value)}
-                type="text"
-                placeholder={userDetails.name}
-                value={name}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Email: </Form.Label>
-              <Form.Control
-                type="text"
-                value={userDetails.email}
-                disabled
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Telephone number: </Form.Label>
-              <Form.Control
-                onChange={(event) => setTelephone(event.target.value)}
-                type="text"
-                placeholder={userDetails.telephone}
-                value={telephone}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>About me and my cat: </Form.Label>
-              <Form.Control
-                onChange={(event) => setAboutMe(event.target.value)}
-                placeholder={userDetails.aboutMe}
-                type="text"
-                value={aboutMe}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>My Credit(s): </Form.Label>
-              <Form.Control
-                type="text"
-                value={userDetails.credits}
-                disabled
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>My Blocked Credit(s): </Form.Label>
-              <Form.Control
-                type="text"
-                value={userDetails.blockedCredits}
-                disabled
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group>
-              <Button type="submit" onClick={submitForm}>
-                Update
-              </Button>
-            </Form.Group>
-          </Form>
-        )}
-      </div>
-
-      <CatList
-        title="My Reservations"
-        reservations={myReservations}
-        filterReservations={(myRes) => myRes.requesterUserId === userDetails.id}
-      />
-      <CatList
-        title="Cats 🐾 I Take Care Of"
-        reservations={myReservations}
-        filterReservations={(myRes) => myRes.providerUserId === userDetails.id}
-      />
-    </div>
+    <Container>
+      {/* <div
+        style={{ display: "flex", justifyContent: "spaceAround", margin: 30 }}
+      > */}
+      <Row>
+        <Col>
+          <h2>User Info</h2>
+          {userDetails && (
+            <Form>
+              <Form.Group>
+                <Form.Label>Name: </Form.Label>
+                <Form.Control
+                  onChange={(event) => setName(event.target.value)}
+                  type="text"
+                  placeholder={userDetails.name}
+                  value={name}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Email: </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={userDetails.email}
+                  disabled
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Telephone number: </Form.Label>
+                <Form.Control
+                  onChange={(event) => setTelephone(event.target.value)}
+                  type="text"
+                  placeholder={userDetails.telephone}
+                  value={telephone}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>About me and my cat: </Form.Label>
+                <Form.Control
+                  onChange={(event) => setAboutMe(event.target.value)}
+                  placeholder={userDetails.aboutMe}
+                  type="text"
+                  value={aboutMe}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>My Credit(s): </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={userDetails.credits}
+                  disabled
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>My Blocked Credit(s): </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={userDetails.blockedCredits}
+                  disabled
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group>
+                <Button type="submit" onClick={submitForm}>
+                  Update
+                </Button>
+              </Form.Group>
+            </Form>
+          )}
+        </Col>
+        <Col>
+          <CatList
+            title="My Reservations"
+            reservations={myReservations}
+            filterReservations={(myRes) =>
+              myRes.requesterUserId === userDetails.id
+            }
+          />
+        </Col>
+        <Col>
+          <CatList
+            title="Cats 🐾 I Take Care Of"
+            reservations={myReservations}
+            filterReservations={(myRes) =>
+              myRes.providerUserId === userDetails.id
+            }
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };

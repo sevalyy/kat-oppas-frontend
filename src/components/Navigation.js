@@ -15,7 +15,7 @@ export const Navigation = () => {
 
   return (
     <Nav>
-      <Logo href="/">Kat-Oppas</Logo>
+      <Logo href="/">Kat-Oppas 🐈‍⬛ 🐈‍⬛ 🐈‍⬛</Logo>
       <Hamburger onClick={() => setOpen(!open)}>
         <span />
         <span />
@@ -57,7 +57,7 @@ const MenuLink = styled.a`
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  color: #ececec;
+  color: black;
   transition: all 0.3s ease-in;
   font-size: 0.9rem;
 
@@ -81,7 +81,7 @@ const Nav = styled.div`
 
 const Logo = styled.a`
   padding: 1rem 0;
-  color: #ececec;
+  color: black;
   text-decoration: none;
   font-weight: 800;
   font-size: 1.7rem;

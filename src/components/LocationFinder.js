@@ -29,7 +29,8 @@ export const LocationFinder = (props) => {
 
   return (
     <Container>
-      📍 <Button onClick={setCurrentLocation}>My Location</Button>
+      <span style={{ fontSize: 30, textAlign: "center" }}>📍</span>{" "}
+      <button onClick={setCurrentLocation}>My Location</button>
     </Container>
   );
 };

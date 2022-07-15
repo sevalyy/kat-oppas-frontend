@@ -5,7 +5,7 @@
 .tab {
   justify-content: left;
   align-items: left;
-  width: 25%;
+  width: 15%;
   background: #e5e5e5;
   padding: 1em 0;
   border: none;
@@ -35,11 +35,15 @@
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  color: #ececec;
+  font-weight: bold;
+  color: black;
   transition: all 0.3s ease-in;
   font-size: 0.9rem;
 
   /* &:hover {
     color: #9cc094;
   } */
+}
+.compactCat {
+  font-size: 0.5rem;
 }

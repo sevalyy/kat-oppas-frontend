@@ -1,5 +1,8 @@
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Col, Row, Container } from "react-bootstrap";
+
+// import Button from "react-bootstrap/Button";
+import { Button } from "../styled";
 import ReactTooltip from "react-tooltip";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -151,139 +154,143 @@ export const Request = (props) => {
   }
 
   return (
-    <div>
+    //     <Container>
+    //   <Row>
+    //        <Col>1 of 2</Col>
+    //        <Col>2 of 2</Col>
+    //   </Row>
+    // </Container>
+
+    <Container>
       <ReactTooltip place="right" />
       <Form>
-        <Form.Group>
-          <Form.Label>Start Date: </Form.Label>
-          <Form.Control
-            onChange={(event) => setStartDate(event.target.value)}
-            type="date"
-            value={startDate}
-            min={endDate}
-            max="2029-12-31"
-          />
-        </Form.Group>
+        <Container>
+          <Row>
+            <Col>
+              <Form.Group>
+                <Form.Label>Start Date: </Form.Label>
+                <Form.Control
+                  onChange={(event) => setStartDate(event.target.value)}
+                  type="date"
+                  value={startDate}
+                  min={endDate}
+                  max="2029-12-31"
+                />
+              </Form.Group>
 
-        <Form.Group>
-          <Form.Label>End Date: </Form.Label>
-          <Form.Control
-            onChange={(event) => setEndDate(event.target.value)}
-            type="date"
-            value={endDate}
-            min={startDate} //start date
-            max="2029-12-31"
-          />
-        </Form.Group>
+              <Form.Group>
+                <Form.Label>End Date: </Form.Label>
+                <Form.Control
+                  onChange={(event) => setEndDate(event.target.value)}
+                  type="date"
+                  value={endDate}
+                  min={startDate} //start date
+                  max="2029-12-31"
+                />
+              </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Credits: </Form.Label>
-          {/* <input
-            style={
-              notEnoughCredits
-                ? { backgroundColor: "red" }
-                : { backgroundColor: "white" }
-            }
-            disabled
-            data-tip="You do not have enough credits for this request"
-            ref={creditField}
-            type="text"
-            value={
-              calculateCredits() +
-              "/" +
-              (userDetails
-                ? userDetails.credits - userDetails.blockedCredits
-                : 0)
-            }
-          /> */}
-          <Form.Control
-            style={
-              notEnoughCredits
-                ? { backgroundColor: "red" }
-                : { backgroundColor: "white" }
-            }
-            disabled
-            data-tip="You do not have enough credits for this request"
-            ref={creditField}
-            type="text"
-            value={
-              calculateCredits() +
-              "/" +
-              (userDetails
-                ? userDetails.credits - userDetails.blockedCredits
-                : 0)
-            }
-          />
-          {notEnoughCredits && <div>You don't seem to have enough credits</div>}
-        </Form.Group>
+              <Form.Group>
+                <Form.Label>Credits: </Form.Label>
 
-        <Form.Group>
-          <Form.Label>About my cat: </Form.Label>
-          <Form.Control
-            onChange={(event) => setDescription(event.target.value)}
-            type="text"
-            value={description}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Cat's image: </Form.Label>
-          <Form.Control type="file" size="sm" onChange={uploadImage} />
-          <div>
-            <Image
-              style={{ height: 100, weight: 100 }}
-              src={
-                imageUrl
-                  ? imageUrl
-                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-              }
-            />
-            {imageUrl ? (
-              <p style={{ fontSize: 14, color: "darkgreen" }}>
-                Succesfully uploaded!
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-        </Form.Group>
-        <Form.Group>
-          <LocationFinder onPositionFound={setMyLocation} />
+                <Form.Control
+                  style={
+                    notEnoughCredits
+                      ? { backgroundColor: "#e5e5e5" }
+                      : { backgroundColor: "white" }
+                  }
+                  disabled
+                  data-tip="You do not have enough credits for this request"
+                  ref={creditField}
+                  type="text"
+                  value={
+                    calculateCredits() +
+                    "/" +
+                    (userDetails
+                      ? userDetails.credits - userDetails.blockedCredits
+                      : 0)
+                  }
+                />
+                {notEnoughCredits && (
+                  <div>You don't seem to have enough credits</div>
+                )}
+              </Form.Group>
 
-          <MapContainer
-            center={[52.35, 4.86]}
-            zoom={12}
-            scrollWheelZoom={true}
-            ref={setMap}
-            style={{
-              border: "2px solid",
-              borderRadius: "10px",
-              height: "30vw",
-              width: "40vw",
-              maxWidth: "600px",
-              maxHeight: "600px",
-              margin: "20px 19.5%",
-            }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {selectedLocation && (
-              <Marker
-                position={[
-                  selectedLocation.latitude,
-                  selectedLocation.longitude,
-                ]}
-              ></Marker>
-            )}
-          </MapContainer>
-        </Form.Group>
-        <Form.Group>
-          <Button type="submit" onClick={submitForm}>
-            Submit
-          </Button>
-        </Form.Group>
+              <Form.Group>
+                <Form.Label>About my cat: </Form.Label>
+                <Form.Control
+                  onChange={(event) => setDescription(event.target.value)}
+                  type="text"
+                  value={description}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Cat's image: </Form.Label>
+                <Form.Control type="file" size="sm" onChange={uploadImage} />
+                <div>
+                  <Image
+                    style={{ height: 100, weight: 100 }}
+                    src={
+                      imageUrl
+                      // ? imageUrl
+                      // : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+                    }
+                  />
+                  {imageUrl ? (
+                    <span style={{ fontSize: 13, color: "darkgreen" }}>
+                      Succesfully uploaded!
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>My Location: </Form.Label>
+
+                <LocationFinder onPositionFound={setMyLocation} />
+
+                <MapContainer
+                  center={[52.35, 4.86]}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  ref={setMap}
+                  style={{
+                    border: "2px solid",
+                    borderRadius: "10px",
+                    height: "250px",
+                    width: "300px",
+                    maxWidth: "400px",
+                    maxHeight: "400px",
+                    margin: "20px 19.5%",
+                  }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {selectedLocation && (
+                    <Marker
+                      position={[
+                        selectedLocation.latitude,
+                        selectedLocation.longitude,
+                      ]}
+                    ></Marker>
+                  )}
+                </MapContainer>
+              </Form.Group>
+            </Col>
+          </Row>
+        </Container>
+        <div>
+          <Form.Group>
+            <Button type="submit" onClick={submitForm}>
+              Submit Reservation Ruquest
+            </Button>
+          </Form.Group>
+        </div>
       </Form>
-    </div>
+    </Container>
   );
 };
