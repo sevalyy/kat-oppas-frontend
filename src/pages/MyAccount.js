@@ -10,6 +10,9 @@ import { updateUserInfo } from "../store/user/thunks";
 import { selectMyReservations } from "../store/reservation/selector";
 import CatList from "../components/CatList";
 import { Col, Container, Row } from "react-bootstrap";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+
 export const MyAccount = () => {
   const token = useSelector(selectToken);
   console.log("user token", token);
@@ -42,8 +45,13 @@ export const MyAccount = () => {
       {/* <div
         style={{ display: "flex", justifyContent: "spaceAround", margin: 30 }}
       > */}
-      <Row>
-        <Col>
+
+      <Tabs
+        defaultActiveKey="home"
+        id="uncontrolled-tab-example"
+        className="mb-3"
+      >
+        <Tab eventKey="home" title="User Info">
           <h2>User Info</h2>
           {userDetails && (
             <Form>
@@ -99,23 +107,24 @@ export const MyAccount = () => {
                 ></Form.Control>
               </Form.Group>
               <Form.Group>
+                <hr />
                 <Button type="submit" onClick={submitForm}>
                   Update
                 </Button>
               </Form.Group>
             </Form>
           )}
-        </Col>
-        <Col>
+        </Tab>
+        <Tab eventKey="requests" title="🐾 My Reservations">
           <CatList
-            title="My Reservations"
+            title="My 🐾 Reservations"
             reservations={myReservations}
             filterReservations={(myRes) =>
               myRes.requesterUserId === userDetails.id
             }
           />
-        </Col>
-        <Col>
+        </Tab>
+        <Tab eventKey="takecareof" title="🐾 Cats I Take Care Of">
           <CatList
             title="Cats 🐾 I Take Care Of"
             reservations={myReservations}
@@ -123,8 +132,8 @@ export const MyAccount = () => {
               myRes.providerUserId === userDetails.id
             }
           />
-        </Col>
-      </Row>
+        </Tab>
+      </Tabs>
     </Container>
   );
 };
