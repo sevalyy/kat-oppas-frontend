@@ -37,4 +37,4 @@ npm install
 npm start
 ```
 
-Heroku address for front end: https://quiet-thicket-38038.herokuapp.com/
+Heroku address for front end: https://kat-oppas.herokuapp.com
