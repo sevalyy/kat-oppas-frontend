@@ -52,9 +52,16 @@ export const MyAccount = () => {
         className="mb-3"
       >
         <Tab eventKey="home" title="User Info">
-          <h2>User Info</h2>
+          <h2 style={{ textAlign: "center" }}>User Info</h2>
           {userDetails && (
-            <Form>
+            <Form
+              style={{
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "70%",
+              }}
+            >
               <Form.Group>
                 <Form.Label>Name: </Form.Label>
                 <Form.Control
@@ -108,7 +115,22 @@ export const MyAccount = () => {
               </Form.Group>
               <Form.Group>
                 <hr />
-                <Button type="submit" onClick={submitForm}>
+                <Button
+                  type="submit"
+                  onClick={submitForm}
+                  style={{
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginBottom: "10px",
+                    marginTop: "10px",
+                    width: "70%",
+                    border: "2px solid ",
+                    borderRadius: "10px",
+                    backgroundColor: "#B1BCE6",
+                    color: "black",
+                  }}
+                >
                   Update
                 </Button>
               </Form.Group>

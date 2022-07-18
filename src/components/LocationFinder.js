@@ -1,7 +1,7 @@
 import { Container } from "@mui/system";
-import { Button } from "../styled";
 import React from "react";
 import "leaflet/dist/leaflet.css";
+import { border } from "@cloudinary/url-gen/qualifiers/background";
 
 export const LocationFinder = (props) => {
   const setCurrentLocation = (e) => {
@@ -28,9 +28,25 @@ export const LocationFinder = (props) => {
   };
 
   return (
-    <Container>
-      <span style={{ fontSize: 30, textAlign: "center" }}>📍</span>{" "}
-      <button onClick={setCurrentLocation}>My Location</button>
+    <Container style={{ padding: "0px" }}>
+      <button
+        onClick={setCurrentLocation}
+        style={{
+          padding: "5px",
+          display: "block",
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginBottom: "20px",
+          marginTop: "20px",
+          width: "50%",
+          border: "2px solid ",
+          borderRadius: "10px",
+          backgroundColor: "#B1BCE6",
+          color: "black",
+        }}
+      >
+        📍 Zoom in my Location
+      </button>
     </Container>
   );
 };

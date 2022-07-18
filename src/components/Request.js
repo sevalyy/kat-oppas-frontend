@@ -1,8 +1,7 @@
 import Form from "react-bootstrap/Form";
 import { Col, Row, Container } from "react-bootstrap";
 
-// import Button from "react-bootstrap/Button";
-import { Button } from "../styled";
+import Button from "react-bootstrap/Button";
 import ReactTooltip from "react-tooltip";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -112,9 +111,7 @@ export const Request = (props) => {
     );
     //TODO Only clear form if postNewReservation ran wuth success
     setDescription("");
-    setImageUrl(
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-    );
+    setImageUrl("");
     setStartDate(moment().format("YYYY-MM-DD"));
     setEndDate(moment().format("YYYY-MM-DD"));
     // navigate("/");
@@ -154,17 +151,18 @@ export const Request = (props) => {
   }
 
   return (
-    //     <Container>
-    //   <Row>
-    //        <Col>1 of 2</Col>
-    //        <Col>2 of 2</Col>
-    //   </Row>
-    // </Container>
-
     <Container>
       <ReactTooltip place="right" />
+
       <Form>
-        <Container>
+        <Container
+          style={{
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: "70%",
+          }}
+        >
           <Row>
             <Col>
               <Form.Group>
@@ -184,7 +182,7 @@ export const Request = (props) => {
                   onChange={(event) => setEndDate(event.target.value)}
                   type="date"
                   value={endDate}
-                  min={startDate} //start date
+                  min={startDate}
                   max="2029-12-31"
                 />
               </Form.Group>
@@ -228,28 +226,32 @@ export const Request = (props) => {
                 <Form.Control type="file" size="sm" onChange={uploadImage} />
                 <div>
                   <Image
-                    style={{ height: 100, weight: 100 }}
-                    src={
-                      imageUrl
-                      // ? imageUrl
-                      // : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-                    }
+                    style={{
+                      height: 100,
+                      weight: 100,
+                      margin: "10px",
+                      display: "block",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    src={imageUrl}
                   />
-                  {imageUrl ? (
-                    <span style={{ fontSize: 13, color: "darkgreen" }}>
+                  {imageUrl && (
+                    <p
+                      style={{
+                        fontSize: 13,
+                        color: "#6A67CE",
+                        textAlign: "center",
+                      }}
+                    >
                       Succesfully uploaded!
-                    </span>
-                  ) : (
-                    ""
+                    </p>
                   )}
                 </div>
               </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group>
-                <Form.Label>My Location: </Form.Label>
 
-                <LocationFinder onPositionFound={setMyLocation} />
+              <Form.Group>
+                <Form.Label> </Form.Label>
 
                 <MapContainer
                   center={[52.35, 4.86]}
@@ -257,13 +259,13 @@ export const Request = (props) => {
                   scrollWheelZoom={true}
                   ref={setMap}
                   style={{
-                    border: "2px solid",
+                    border: "2px solid #6A67CE",
                     borderRadius: "10px",
-                    height: "250px",
-                    width: "300px",
-                    maxWidth: "400px",
-                    maxHeight: "400px",
-                    margin: "20px 19.5%",
+                    height: "350px",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "80%",
                   }}
                 >
                   <TileLayer
@@ -279,17 +281,32 @@ export const Request = (props) => {
                     ></Marker>
                   )}
                 </MapContainer>
+                <LocationFinder onPositionFound={setMyLocation} />
+              </Form.Group>
+
+              <Form.Group>
+                <Button
+                  type="submit"
+                  onClick={submitForm}
+                  style={{
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginBottom: "10px",
+                    marginTop: "10px",
+                    width: "70%",
+                    border: "2px solid ",
+                    borderRadius: "10px",
+                    backgroundColor: "#B1BCE6",
+                    color: "black",
+                  }}
+                >
+                  Submit Reservation Ruquest
+                </Button>
               </Form.Group>
             </Col>
           </Row>
         </Container>
-        <div>
-          <Form.Group>
-            <Button type="submit" onClick={submitForm}>
-              Submit Reservation Ruquest
-            </Button>
-          </Form.Group>
-        </div>
       </Form>
     </Container>
   );

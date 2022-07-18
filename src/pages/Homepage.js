@@ -12,24 +12,18 @@ import { Link } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Cat from "../components/Cat";
-import "./style.css";
-import { Button } from "../styled";
-import { Input, Title, LinkWord } from "../styled";
-import { Col, Container, Row } from "react-bootstrap";
 
-// import { Row, Button, Col } from "react-bootstrap";
-// use them to create react bootsrap tab button
+import "./style.css";
+import { Title } from "../styled";
+import { Col, Container, Row } from "react-bootstrap";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+
 export function Homepage() {
   const [map, setMap] = useState(null);
   const reservations = useSelector(selectAllReservations);
 
   const dispatch = useDispatch();
-
-  //tabs for map and list
-  const [activeIndex, setActiveIndex] = useState(0);
-  const handleClick = (index) => setActiveIndex(index);
-  const checkActive = (index, className) =>
-    activeIndex === index ? className : "";
 
   delete L.Icon.Default.prototype._getIconUrl;
 
@@ -51,120 +45,120 @@ export function Homepage() {
 
   return (
     <>
-      <div className="tabs">
-        <button
-          className={`tab ${checkActive(0, "active")}`}
-          onClick={() => handleClick(0)}
+      <Container
+        style={{
+          padding: "0",
+          marginRight: "30px",
+          marginLeft: "30px",
+          minHeight: "550px",
+        }}
+      >
+        <Tabs
+          defaultActiveKey="home"
+          id="uncontrolled-tab-example"
+          className="mb-2"
+          fill
+          justify
+          style={{
+            padding: 10,
+          }}
         >
-          See on Map
-        </button>
-        <button
-          className={`tab ${checkActive(1, "active")}`}
-          onClick={() => handleClick(1)}
-        >
-          See as a List{" "}
-        </button>
-      </div>
-      <Container>
-        <Row>
-          <div className="panels">
-            <div className={`panel ${checkActive(0, "active")}`}>
+          <Tab eventKey="home" title="See on Map">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: 20,
+              }}
+            >
+              <Col xs={9}>
+                <MapContainer
+                  center={[52.35, 4.86]}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  ref={setMap}
+                  style={{
+                    border: "2px solid #6A67CE",
+                    borderRadius: "10px",
+                    height: "40vw",
+                    width: "80%",
+                    maxWidth: "700px",
+                    maxHeight: "400px",
+                    margin: "10px 10.5%",
+                  }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {reservations &&
+                    reservations.map((reservation) => (
+                      <Marker
+                        key={reservation.id}
+                        position={[reservation.latitude, reservation.longitude]}
+                      >
+                        {" "}
+                        <Popup>
+                          <img
+                            src={reservation.imageUrl}
+                            alt="cat"
+                            style={{ height: 40, weight: 40 }}
+                          />
+                          <p>
+                            from {reservation.startDate} to{" "}
+                            {reservation.endDate}
+                          </p>
+                          <Link to={`/reservations/${reservation.id}`}>
+                            details
+                          </Link>
+                        </Popup>
+                      </Marker>
+                    ))}
+                </MapContainer>
+                {/* <LocationFinder /> */}
+              </Col>
+              <Col xs={3}>
+                <LocationFinder
+                  onPositionFound={setMapPosition}
+                  style={{
+                    display: "flex",
+                    padding: "0px",
+                    margin: 0,
+                    width: "90%",
+                  }}
+                />
+              </Col>
+            </div>
+            {/* <LocationFinder onPositionFound={setMapPosition} /> */}
+          </Tab>
+          <Tab eventKey="requests" title="See All Requests">
+            <div>
+              <Title> Here Our Lovely Friends 🐈‍⬛ </Title>
+              <hr />
               <div
                 style={{
                   display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
                   justifyContent: "center",
-                  padding: 30,
                 }}
               >
-                <Col>
-                  <LocationFinder onPositionFound={setMapPosition} />
-                  <p>
-                    Let's see who needs some cuddle! <br />
-                    Either zoom in your current location with "My Location"
-                    button, <br />
-                    Or use map to see all cats
-                  </p>
-                </Col>
-                <Col xs={9}>
-                  <MapContainer
-                    center={[52.35, 4.86]}
-                    zoom={12}
-                    scrollWheelZoom={true}
-                    ref={setMap}
-                    style={{
-                      border: "2px solid",
-                      borderRadius: "10px",
-                      height: "50vw",
-                      width: "60vw",
-                      maxWidth: "600px",
-                      maxHeight: "600px",
-                      margin: "20px 19.5%",
-                    }}
-                  >
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                {reservations.map((reservation) => {
+                  return (
+                    <Cat
+                      key={reservation.id}
+                      id={reservation.id}
+                      startDate={reservation.startDate}
+                      endDate={reservation.endDate}
+                      imageUrl={reservation.imageUrl}
+                      status={reservation.status}
                     />
-                    {reservations &&
-                      reservations.map((reservation) => (
-                        <Marker
-                          key={reservation.id}
-                          position={[
-                            reservation.latitude,
-                            reservation.longitude,
-                          ]}
-                        >
-                          {" "}
-                          <Popup>
-                            <img
-                              src={reservation.imageUrl}
-                              alt="cat"
-                              style={{ height: 40, weight: 40 }}
-                            />
-                            <p>
-                              from {reservation.startDate} to{" "}
-                              {reservation.endDate}
-                            </p>
-                            <Link to={`/reservations/${reservation.id}`}>
-                              details
-                            </Link>
-                          </Popup>
-                        </Marker>
-                      ))}
-                  </MapContainer>
-                </Col>
+                  );
+                })}
               </div>
             </div>
-            <div className={`panel ${checkActive(1, "active")}`}>
-              <div>
-                <Title>Here our lovely friends 🐈‍⬛ </Title>
-                <hr />
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {reservations.map((reservation) => {
-                    return (
-                      <Cat
-                        key={reservation.id}
-                        id={reservation.id}
-                        startDate={reservation.startDate}
-                        endDate={reservation.endDate}
-                        imageUrl={reservation.imageUrl}
-                        status={reservation.status}
-                        // lattitude={reservation.latitude}
-                        // longitude={reservation.longitude}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Row>
+          </Tab>
+        </Tabs>
       </Container>
     </>
   );

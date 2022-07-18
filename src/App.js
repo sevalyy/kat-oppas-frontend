@@ -8,6 +8,7 @@ import { Navigation, MessageBox } from "./components";
 import { Login, SignUp, Homepage, MyAccount } from "./pages";
 import { ReservationRequest } from "./pages/ReservationRequest";
 import { RequestDetails } from "./pages/RequestDetails";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/reservations/:id" element={<RequestDetails />} />
         <Route path="/myaccount" element={<MyAccount />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

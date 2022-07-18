@@ -1,33 +1,7 @@
-.tabs {
-  display: flex;
-  background-color: #e5e5e5;
-}
-.tab {
-  justify-content: left;
-  align-items: left;
-  width: 15%;
-  background: #e5e5e5;
-  padding: 1em 0;
-  border: none;
-}
-
 .tab.active {
   font-weight: bold;
   text-decoration: underline;
   font-size: 1.1em;
-}
-.tab:hover {
-  cursor: pointer;
-}
-.panel {
-  display: none;
-  height: 400px;
-  /* background-color: purple;
-  padding: 0 0 0 20px;
-  text-align: left; */
-}
-.panel.active {
-  display: block;
 }
 
 .menuLink {
@@ -36,14 +10,14 @@
   text-align: center;
   text-decoration: none;
   font-weight: bold;
-  color: black;
+  color: rgb(14, 13, 13);
   transition: all 0.3s ease-in;
-  font-size: 0.9rem;
-
-  /* &:hover {
-    color: #9cc094;
-  } */
+  background-color: #6a67ce;
 }
-.compactCat {
-  font-size: 0.5rem;
+
+#catCard {
+  box-shadow: 0 0 5px 5px rgba(231, 230, 239, 0.4);
+}
+.nav-link {
+  color: black;
 }

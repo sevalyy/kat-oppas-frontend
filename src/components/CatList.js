@@ -4,7 +4,7 @@ export default function CatList(props) {
   return (
     <div>
       <ul>
-        <h2>{props.title}</h2>
+        <h2 style={{ textAlign: "center" }}>{props.title} </h2>
         <div
           style={{
             display: "flex",

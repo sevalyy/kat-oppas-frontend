@@ -1,10 +1,9 @@
 // import { Link } from "react-router-dom";
 
-import styled from "styled-components";
 import { Request } from "../components/Request";
 import React from "react";
 import { Title } from "../styled";
-import { Col, Row, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 export const ReservationRequest = () => {
   return (

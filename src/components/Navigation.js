@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "../store/user/selectors";
 import { logOut } from "../store/user/slice";
 import { Link } from "react-router-dom";
-//import "../pages/style.css";
+import "../pages/style.css";
 
 export const Navigation = () => {
   const [open, setOpen] = useState(false);
@@ -33,7 +33,7 @@ export const Navigation = () => {
           </Link>
         ) : null}
         {token ? (
-          <Link to="/myaccount" className="menuLink" style={{ MenuLink }}>
+          <Link to="/myaccount" className="menuLink">
             My Account
           </Link>
         ) : null}
@@ -46,33 +46,19 @@ export const Navigation = () => {
             Login
           </Link>
         )}
-        {/* <MenuLink href="/request">Reservation Request</MenuLink> */}
       </Menu>
     </Nav>
   );
 };
 //menulink is used in css file
-const MenuLink = styled.a`
-  padding: 1rem 2rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  transition: all 0.3s ease-in;
-  font-size: 0.9rem;
-
-  &:hover {
-    color: #9cc094;
-  }
-`;
 
 const Nav = styled.div`
-  padding: 0 2rem;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background: #b22727;
+  background: #6a67ce;
   /* position: absolute; */
   top: 0;
   left: 0;
@@ -80,7 +66,7 @@ const Nav = styled.div`
 `;
 
 const Logo = styled.a`
-  padding: 1rem 0;
+  padding: 1.1rem 0;
   color: black;
   text-decoration: none;
   font-weight: 800;

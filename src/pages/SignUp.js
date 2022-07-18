@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../store/user/thunks";
 import { selectToken } from "../store/user/selectors";
+import Form from "react-bootstrap/Form";
 
 export const SignUp = () => {
   const [name, setName] = useState("");
