@@ -15,7 +15,7 @@ import Cat from "../components/Cat";
 
 import "./style.css";
 import { Title } from "../styled";
-import { Col, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 

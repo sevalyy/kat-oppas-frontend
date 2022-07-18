@@ -1,7 +1,6 @@
 import { Container } from "@mui/system";
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { border } from "@cloudinary/url-gen/qualifiers/background";
 
 export const LocationFinder = (props) => {
   const setCurrentLocation = (e) => {
@@ -17,8 +16,8 @@ export const LocationFinder = (props) => {
           if (onPositionFound)
             onPositionFound(p.coords.latitude, p.coords.longitude);
         },
-        () => {
-          console.log("Unable to retrieve your location");
+        (error) => {
+          console.log("Unable to retrieve your location", error);
         }
       );
     } else {

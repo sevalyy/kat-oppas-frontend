@@ -71,8 +71,8 @@ export const Request = (props) => {
     );
     console.log("Image upload completed.");
     const file = await res.json();
-    console.log("Remote url:", file.url); //check if you are getting the url back
-    setImageUrl(file.url); //put the url in local state, next step you can send it to the backend
+    console.log("Remote url:", file, file.secure_url); //check if you are getting the url back
+    setImageUrl(file.secure_url); //put the url in local state, next step you can send it to the backend
   };
   //************ END
 
