@@ -18,7 +18,7 @@
 }
 .footerLogo {
   /* color: #8568ff; */
-  color: black;
+  color: white;
 }
 
 .visit a:visited {
@@ -35,6 +35,7 @@
 }
 .follow {
   width: 30%;
+  color: black;
   margin-bottom: 0px;
   padding-top: 20px;
   text-align: right;

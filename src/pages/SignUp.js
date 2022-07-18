@@ -34,29 +34,37 @@ export const SignUp = () => {
     <div style={{ textAlign: "center" }}>
       <Container>
         <Title>Sign Up</Title>
-        <form onSubmit={submitForm}>
+
+        <Form onSubmit={submitForm}>
           <Input
             placeholder="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <br />
           <Input
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <br />
+
           <Input
             type="password"
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <br />
+
           <Input
             type="telephone"
             placeholder="phone number"
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
           />
+          <br />
+
           <Input
             type="aboutMe"
             placeholder="About me and my cat"
@@ -68,7 +76,7 @@ export const SignUp = () => {
           <Button type="submit" onClick={submitForm}>
             Sign Up
           </Button>
-        </form>
+        </Form>
       </Container>
     </div>
   );
@@ -77,5 +85,5 @@ export const SignUp = () => {
 const Container = styled.div`
   display: "flex";
   flex-direction: "column";
-  margin: 15%;
+  margin: 5%;
 `;

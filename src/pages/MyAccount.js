@@ -15,15 +15,18 @@ import Tabs from "react-bootstrap/Tabs";
 
 export const MyAccount = () => {
   const token = useSelector(selectToken);
-  console.log("user token", token);
   const userDetails = useSelector(selectUser);
   const myReservations = useSelector(selectMyReservations);
 
   console.log("user boo", userDetails);
 
-  const [name, setName] = useState(userDetails.name);
-  const [aboutMe, setAboutMe] = useState(userDetails.aboutMe);
-  const [telephone, setTelephone] = useState(userDetails.telephone);
+  const [name, setName] = useState(userDetails ? userDetails.name : "");
+  const [aboutMe, setAboutMe] = useState(
+    userDetails ? userDetails.aboutMe : ""
+  );
+  const [telephone, setTelephone] = useState(
+    userDetails ? userDetails.telephone : ""
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,18 +37,16 @@ export const MyAccount = () => {
   }
 
   useEffect(() => {
-    if (!userDetails) {
-      navigate("/");
+    if (!token) {
+      navigate("/login");
+      return;
+    } else {
+      dispatch(fetchMyReservations());
     }
-    dispatch(fetchMyReservations());
-  }, [userDetails, navigate, dispatch]);
+  }, [token, navigate, dispatch]);
 
   return (
     <Container>
-      {/* <div
-        style={{ display: "flex", justifyContent: "spaceAround", margin: 30 }}
-      > */}
-
       <Tabs
         defaultActiveKey="home"
         id="uncontrolled-tab-example"

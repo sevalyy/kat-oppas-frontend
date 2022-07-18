@@ -15,7 +15,7 @@ import Cat from "../components/Cat";
 
 import "./style.css";
 import { Title } from "../styled";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -48,7 +48,7 @@ export function Homepage() {
       <Container
         style={{
           padding: "0",
-          marginRight: "30px",
+          marginRight: "10px",
           marginLeft: "30px",
           minHeight: "550px",
         }}
@@ -60,7 +60,7 @@ export function Homepage() {
           fill
           justify
           style={{
-            padding: 10,
+            padding: "20px",
           }}
         >
           <Tab eventKey="home" title="See on Map">
@@ -71,65 +71,50 @@ export function Homepage() {
                 padding: 20,
               }}
             >
-              <Col xs={9}>
-                <MapContainer
-                  center={[52.35, 4.86]}
-                  zoom={12}
-                  scrollWheelZoom={true}
-                  ref={setMap}
-                  style={{
-                    border: "2px solid #6A67CE",
-                    borderRadius: "10px",
-                    height: "40vw",
-                    width: "80%",
-                    maxWidth: "700px",
-                    maxHeight: "400px",
-                    margin: "10px 10.5%",
-                  }}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  {reservations &&
-                    reservations.map((reservation) => (
-                      <Marker
-                        key={reservation.id}
-                        position={[reservation.latitude, reservation.longitude]}
-                      >
-                        {" "}
-                        <Popup>
-                          <img
-                            src={reservation.imageUrl}
-                            alt="cat"
-                            style={{ height: 40, weight: 40 }}
-                          />
-                          <p>
-                            from {reservation.startDate} to{" "}
-                            {reservation.endDate}
-                          </p>
-                          <Link to={`/reservations/${reservation.id}`}>
-                            details
-                          </Link>
-                        </Popup>
-                      </Marker>
-                    ))}
-                </MapContainer>
-                {/* <LocationFinder /> */}
-              </Col>
-              <Col xs={3}>
-                <LocationFinder
-                  onPositionFound={setMapPosition}
-                  style={{
-                    display: "flex",
-                    padding: "0px",
-                    margin: 0,
-                    width: "90%",
-                  }}
+              <MapContainer
+                center={[52.35, 4.86]}
+                zoom={12}
+                scrollWheelZoom={true}
+                ref={setMap}
+                style={{
+                  border: "2px solid #6A67CE",
+                  borderRadius: "10px",
+                  height: "40vw",
+                  width: "80%",
+                  maxWidth: "700px",
+                  maxHeight: "400px",
+                  margin: "10px 10.5%",
+                }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-              </Col>
+                {reservations &&
+                  reservations.map((reservation) => (
+                    <Marker
+                      key={reservation.id}
+                      position={[reservation.latitude, reservation.longitude]}
+                    >
+                      {" "}
+                      <Popup>
+                        <img
+                          src={reservation.imageUrl}
+                          alt="cat"
+                          style={{ height: 40, weight: 40 }}
+                        />
+                        <p>
+                          from {reservation.startDate} to {reservation.endDate}
+                        </p>
+                        <Link to={`/reservations/${reservation.id}`}>
+                          details
+                        </Link>
+                      </Popup>
+                    </Marker>
+                  ))}
+              </MapContainer>
             </div>
-            {/* <LocationFinder onPositionFound={setMapPosition} /> */}
+            <LocationFinder onPositionFound={setMapPosition} />
           </Tab>
           <Tab eventKey="requests" title="See All Requests">
             <div>

@@ -29,7 +29,7 @@ export const Login = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <Container>
+      <Container style={{ minHeight: "490px" }}>
         <Title>Login</Title>
         <form onSubmit={submitForm}>
           <Input
@@ -37,6 +37,7 @@ export const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <br />
           <Input
             type="password"
             placeholder="password"
@@ -60,7 +61,7 @@ export const Login = () => {
 const Container = styled.div`
   display: "flex";
   flex-direction: "column";
-  margin: 15%;
+  margin: 5%;
 `;
 
 const SubText = styled.p`

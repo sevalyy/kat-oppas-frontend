@@ -27,9 +27,6 @@ export default function CatList(props) {
                     startDate={r.startDate}
                     endDate={r.endDate}
                     imageUrl={r.imageUrl}
-
-                    // lattitude={reservation.latitude}
-                    // longitude={reservation.longitude}
                   />
                 </li>
               );

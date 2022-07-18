@@ -10,7 +10,7 @@
   text-align: center;
   text-decoration: none;
   font-weight: bold;
-  color: rgb(14, 13, 13);
+  color: white;
   transition: all 0.3s ease-in;
   background-color: #6a67ce;
 }
@@ -20,4 +20,9 @@
 }
 .nav-link {
   color: black;
+}
+
+.center-vertical {
+  display: flex;
+  align-items: center;
 }

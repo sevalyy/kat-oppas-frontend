@@ -13,7 +13,6 @@ export const LocationFinder = (props) => {
         (p) => {
           console.log("Position is:", [p.coords.latitude, p.coords.longitude]);
 
-          // Eger "onPositionFound" varsa, onu bulunan koordinatlarla calistir
           const onPositionFound = props.onPositionFound;
           if (onPositionFound)
             onPositionFound(p.coords.latitude, p.coords.longitude);
@@ -39,7 +38,7 @@ export const LocationFinder = (props) => {
           marginBottom: "20px",
           marginTop: "20px",
           width: "50%",
-          border: "2px solid ",
+          border: "2px solid #6A67CE ",
           borderRadius: "10px",
           backgroundColor: "#B1BCE6",
           color: "black",

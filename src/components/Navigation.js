@@ -67,7 +67,7 @@ const Nav = styled.div`
 
 const Logo = styled.a`
   padding: 1.1rem 0;
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: 800;
   font-size: 1.7rem;

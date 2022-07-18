@@ -22,10 +22,6 @@ export const reservationSlice = createSlice({
     addNewRezervation: (state, action) => {
       state.allReservations.push(action.payload);
     },
-    // changeStatus: (state, action) => {
-    //   state.reservationDetails.status = 1;
-    //   state.reservationDetails.providerId = action.payload;
-    //  },
   },
 });
 

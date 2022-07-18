@@ -88,7 +88,7 @@ export const RequestDetails = () => {
                   dispatch(cancelReservation(id));
                 }}
               >
-                Cancel (for new)
+                Cancel
               </Button>
             )}
 
@@ -117,7 +117,7 @@ export const RequestDetails = () => {
                   dispatch(cancelReservation(id));
                 }}
               >
-                Cancel (for acccepted)
+                Cancel
               </Button>
             )}
 
