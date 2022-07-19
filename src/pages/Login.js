@@ -29,7 +29,7 @@ export const Login = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <Container style={{ minHeight: "490px" }}>
+      <Container style={{ minHeight: "520px" }}>
         <Title>Login</Title>
         <form onSubmit={submitForm}>
           <Input

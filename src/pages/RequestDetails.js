@@ -73,9 +73,14 @@ export const RequestDetails = () => {
             {reservationDetail.requester && reservationDetail.requester.name}
           </p>
           <p>
+            Phone Number:
+            {reservationDetail.requester &&
+              reservationDetail.requester.telephone}
+          </p>
+          <p>
             Reservation's Status: <Status status={reservationDetail.status} />
           </p>
-          <p>Start Date:{reservationDetail.startDate} </p>
+          <p>Start Date: {reservationDetail.startDate} </p>
           <p>End Date: {reservationDetail.endDate}</p>
           <p>About 🐾 : {reservationDetail.description}</p>
 

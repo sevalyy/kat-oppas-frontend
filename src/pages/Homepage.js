@@ -50,7 +50,7 @@ export function Homepage() {
           padding: "0",
           marginRight: "10px",
           marginLeft: "30px",
-          minHeight: "550px",
+          minHeight: "650px",
         }}
       >
         <Tabs
@@ -79,9 +79,9 @@ export function Homepage() {
                 style={{
                   border: "2px solid #6A67CE",
                   borderRadius: "10px",
-                  height: "40vw",
+                  height: "60vw",
                   width: "80%",
-                  maxWidth: "700px",
+                  maxWidth: "800px",
                   maxHeight: "400px",
                   margin: "10px 10.5%",
                 }}
