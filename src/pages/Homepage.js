@@ -50,7 +50,7 @@ export function Homepage() {
           padding: "0",
           marginRight: "10px",
           marginLeft: "30px",
-          minHeight: "650px",
+          height: "100%",
         }}
       >
         <Tabs

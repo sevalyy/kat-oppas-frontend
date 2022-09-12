@@ -1,3 +1,6 @@
 body {
   background-color: #eef3d2;
+  min-height: fit-content;
+  height: 100%;
+  margin-bottom: 120px;
 }
