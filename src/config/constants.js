@@ -1,7 +1,7 @@
 export const apiUrl =
-  // process.env.API_URL || "https://pacific-beach-71647.herokuapp.com";
-  // for testing localhost
-  process.env.API_URL || "http://localhost:4000";
+  process.env.API_URL || "https://pacific-beach-71647.herokuapp.com";
+// for testing localhost
+// process.env.API_URL || "http://localhost:4000";
 export const DEFAULT_MESSAGE_TIMEOUT = 3000;
 // export const STATUS = {
 //   REV_STATUS_CREATED: 0,
