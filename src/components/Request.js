@@ -161,6 +161,39 @@ export const Request = (props) => {
           <Row>
             <Col>
               <Form.Group>
+                <Form.Label> </Form.Label>
+
+                <MapContainer
+                  center={[52.35, 4.86]}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  ref={setMap}
+                  style={{
+                    border: "2px solid #6A67CE",
+                    borderRadius: "10px",
+                    height: "350px",
+                    // display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    width: "80%",
+                  }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {selectedLocation && (
+                    <Marker
+                      position={[
+                        selectedLocation.latitude,
+                        selectedLocation.longitude,
+                      ]}
+                    ></Marker>
+                  )}
+                </MapContainer>
+                <LocationFinder onPositionFound={setMyLocation} />
+              </Form.Group>
+              <Form.Group>
                 <Form.Label>Start Date: </Form.Label>
                 <Form.Control
                   onChange={(event) => setStartDate(event.target.value)}
@@ -222,8 +255,8 @@ export const Request = (props) => {
                 <div>
                   <Image
                     style={{
-                      height: 100,
-                      weight: 100,
+                      height: 150,
+                      weight: 150,
                       margin: "10px",
                       display: "block",
                       marginLeft: "auto",
@@ -243,40 +276,6 @@ export const Request = (props) => {
                     </p>
                   )}
                 </div>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label> </Form.Label>
-
-                <MapContainer
-                  center={[52.35, 4.86]}
-                  zoom={12}
-                  scrollWheelZoom={true}
-                  ref={setMap}
-                  style={{
-                    border: "2px solid #6A67CE",
-                    borderRadius: "10px",
-                    height: "350px",
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "80%",
-                  }}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  {selectedLocation && (
-                    <Marker
-                      position={[
-                        selectedLocation.latitude,
-                        selectedLocation.longitude,
-                      ]}
-                    ></Marker>
-                  )}
-                </MapContainer>
-                <LocationFinder onPositionFound={setMyLocation} />
               </Form.Group>
 
               <Form.Group>
