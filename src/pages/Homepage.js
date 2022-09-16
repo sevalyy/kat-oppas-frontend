@@ -64,61 +64,69 @@ export function Homepage() {
           }}
         >
           <Tab eventKey="home" title="See on Map">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                padding: 20,
-              }}
-            >
-              <MapContainer
-                center={[52.35, 4.86]}
-                zoom={12}
-                scrollWheelZoom={true}
-                ref={setMap}
+            <div>
+              <Title>
+                {" "}
+                Here Our Lovely Friends 🐈‍⬛ 🐈‍⬛ That Need Some Cuddle
+              </Title>
+
+              <div
                 style={{
-                  border: "2px solid #6A67CE",
-                  borderRadius: "10px",
-                  height: "60vw",
-                  width: "80%",
-                  maxWidth: "800px",
-                  maxHeight: "400px",
-                  margin: "10px 10.5%",
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: 20,
                 }}
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {reservations &&
-                  reservations.map((reservation) => (
-                    <Marker
-                      key={reservation.id}
-                      position={[reservation.latitude, reservation.longitude]}
-                    >
-                      {" "}
-                      <Popup>
-                        <img
-                          src={reservation.imageUrl}
-                          alt="cat"
-                          style={{ height: 40, weight: 40 }}
-                        />
-                        <p>
-                          from {reservation.startDate} to {reservation.endDate}
-                        </p>
-                        <Link to={`/reservations/${reservation.id}`}>
-                          details
-                        </Link>
-                      </Popup>
-                    </Marker>
-                  ))}
-              </MapContainer>
+                <MapContainer
+                  center={[52.35, 4.86]}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  ref={setMap}
+                  style={{
+                    border: "2px solid #6A67CE",
+                    borderRadius: "10px",
+                    height: "60vw",
+                    width: "80%",
+                    maxWidth: "800px",
+                    maxHeight: "400px",
+                    margin: "10px 10.5%",
+                  }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {reservations &&
+                    reservations.map((reservation) => (
+                      <Marker
+                        key={reservation.id}
+                        position={[reservation.latitude, reservation.longitude]}
+                      >
+                        {" "}
+                        <Popup>
+                          <img
+                            src={reservation.imageUrl}
+                            alt="cat"
+                            style={{ height: 40, weight: 40 }}
+                          />
+                          <p>
+                            from {reservation.startDate} to{" "}
+                            {reservation.endDate}
+                          </p>
+                          <Link to={`/reservations/${reservation.id}`}>
+                            details
+                          </Link>
+                        </Popup>
+                      </Marker>
+                    ))}
+                </MapContainer>
+              </div>
             </div>
             <LocationFinder onPositionFound={setMapPosition} />
           </Tab>
           <Tab eventKey="requests" title="See All Requests">
             <div>
-              <Title> Here Our Lovely Friends 🐈‍⬛ </Title>
+              <Title> Here Our Lovely Friends 🐈‍⬛ 🐈‍⬛ </Title>
               <hr />
               <div
                 style={{
